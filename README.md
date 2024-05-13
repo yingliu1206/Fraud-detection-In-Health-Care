@@ -32,3 +32,25 @@ This data provides details about the claims filed for those patients who visit h
 C) Beneficiary Details Data
 
 This data contains beneficiary KYC details like health conditions,regioregion they belong to etc.
+
+## EDA Before Data Preprocessing
+### Inpatient findings
+* The top procedure is 4019.0. There are 6% patients undergoing this procedure. Based on ICD-9 Code, 4019 is Hypertension NOS (Unspecified essential hypertension).
+* The top diagnosis is also 4019. There are around 4.5% patients diagnosed as Hypertension NOS (Unspecified essential hypertension).
+* In the inpatient claims, providers are evenly distributed. There is no specific providers which submitted more claims than others.
+* More than 90% of paitients stayed in hospital less than 10 days.
+* The distribution of amount reimbursed in the inpatient claim seems like a log normal distribtion. The majority of amount falls between 0 and 20,000.
+
+### Outpatient findings
+* The top procedure is 9904.0. There are around 7.3% patients undergoing this procedure. Based on ICD-9 Code, 9904 is Transfusion Of Packed Cells. 4516 is the second popular procedure, which is Esophagogastroduodenoscopy [Egd] With Closed Biopsy.
+* The top diagnosis is the same as the inpatient's data - 4019. There are around 4.5% patients diagnosed as Hypertension NOS (Unspecified essential hypertension). The second dx code 25000 is Incision Procedures on the Forearm and Wrist.
+* Provider 'PRV51459' has around 1% more claims than other providers.
+* The majority of claim length is 1 day.
+* The claim reimbursed amount in outpaitent claims shows a rough log normal distribution. However, on the tail, there is a signal of outliers around $3500.
+
+## Data Preprocessing
+* Merge OutPatient, Inpatient, and Beneficiary to get the whole dataset
+* Replace values with a binary annotation (1,2 to 0,1)
+* Check the balance of the label
+* Check duplicates
+
