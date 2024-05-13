@@ -19,7 +19,7 @@ e) Billing for a covered service when the service actually provided was not cove
 The goal of this project is to "predict the potentially fraudulent providers" based on the claims filed by them. Along with this, we will also discover important variables helpful in detecting the behaviour of potentially fraud providers. Further, we will study fraudulent patterns in the provider's claims to understand the future behaviour of providers.
 
 ## Dataset
-For the purpose of this project, we are considering Inpatient claims, Outpatient claims and Beneficiary details of each provider. Lets s see their details :
+For the purpose of this project, we are considering Inpatient claims, Outpatient claims and Beneficiary details of each provider.
 
 A) Inpatient Data
 
