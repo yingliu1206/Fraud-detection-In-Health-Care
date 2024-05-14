@@ -58,4 +58,11 @@ This data contains beneficiary KYC details like health conditions,regioregion th
       * Deceased
       * Age
       * Hospital Stays
+      * Claim Length
+      * physician_same: check for same physician in all three physician columns
+      * N_unique_values: count unique physicians in each claim
+      * total_num_diag: count how many dx a claim has
+      * total_num_proce: count how many proc a claim has
+      * sum: calculate the total number of claims for each 'BeneID'
+      * mean: calculate the mean amount of claims for each 'BeneID'
 
