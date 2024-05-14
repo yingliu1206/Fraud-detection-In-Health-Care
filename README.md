@@ -48,11 +48,16 @@ This data contains beneficiary KYC details like health conditions,regioregion th
 * The majority of claim length is 1 day.
 * The claim reimbursed amount in outpaitent claims shows a rough log normal distribution. However, on the tail, there is a signal of outliers around $3500.
 
+### Beneficiary Details findings
+* While there is no significant difference in the age distribution that would allow us to flag potential fraud, we do observe an increasing trend in potential fraud cases among patients aged 65 and older. Additionally, most patients who apply for claims fall within this age range.
+* A significant number of fraudulent cases involve patients belonging to a specific race, labeled as 1.
+
 ## Data Preprocessing
 * Merge OutPatient, Inpatient, and Beneficiary to get the whole dataset
 * Replace values with a binary annotation (1,2 to 0,1)
 * Check the balance of the label
 * Check duplicates
+* Replace null values in DeductibleAmtPaid, DiagnosisGroupCode, dx code, and proc dode with 0
 * Feature Engineering
    * Feature creation
       * Deceased
@@ -65,4 +70,18 @@ This data contains beneficiary KYC details like health conditions,regioregion th
       * total_num_proce: count how many proc a claim has
       * sum: calculate the total number of claims for each 'BeneID'
       * mean: calculate the mean amount of claims for each 'BeneID'
+  * Encoding Categorical Features
+      * apply one-hot encoding on all proc code and dx code - cause sparse data issue
+      * encode top 5 proc code and dx code
+      * encoding types of physicians into numeric values
+  * Feature Deletion
+      * drop features from which other features were created
+* Split data into train, validation, test dataset
+* Normalization numerical columns
+  *  calculates and stores the parameters necessary for normalization based on the training data
+  *  normalize each column in train, validation, and test dataset
+
+## Modeling
+### Using all features
+#### Model 1 : LR
 
