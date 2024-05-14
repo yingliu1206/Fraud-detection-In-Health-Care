@@ -83,5 +83,23 @@ This data contains beneficiary KYC details like health conditions,regioregion th
 
 ## Modeling
 ### Using all features
-#### Model 1 : LR
+#### Models: LR, Decision Tree, Random Forest, Xg_Boost
+* Use GridSearchCV to find the optimal parameters
+* Train the model with the best parameters
+* Get the score on the validation dataset
+#### Compare the performance of models
+![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/fe32f254-013e-4cad-92e3-96d0ebdf66dd)
 
+### Using important features
+#### Models: LR, Decision Tree, Random Forest, Xg_Boost
+* Use GridSearchCV to find the optimal parameters
+* Train the model with the best parameters
+* Get the score on the validation dataset
+#### Compare the performance of models
+![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/ab4681a6-9945-4df7-b021-46cb72b8443d)
+
+### Comparison using all features VS Imp features
+![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/accfc96d-14cd-456e-a87e-123cf2920caa)
+![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/61f2efb8-fea4-4b4e-ae4a-f81be2d7189c)
+
+**Conclusion**: There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
