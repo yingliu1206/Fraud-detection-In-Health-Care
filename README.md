@@ -53,4 +53,9 @@ This data contains beneficiary KYC details like health conditions,regioregion th
 * Replace values with a binary annotation (1,2 to 0,1)
 * Check the balance of the label
 * Check duplicates
+* Feature Engineering
+   * Feature creation
+      * Deceased
+      * Age
+      * Hospital Stays
 
