@@ -98,11 +98,11 @@ This data contains beneficiary KYC details like health conditions,regioregion th
 * Train the model with the best parameters
 * Get the score on the validation dataset
 #### Compare the performance of models
-<img width="1049" alt="Screenshot 2024-05-17 at 8 38 51 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/9b54983f-9729-46d4-b5d6-321b0a75f601">
+<img width="1038" alt="Screenshot 2024-05-17 at 8 41 50 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/27ad2a5b-82ef-413e-a53b-4bd9a7c76a8b">
 
 ### Comparison using all features VS Imp features
-<img width="1052" alt="Screenshot 2024-05-17 at 8 39 18 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/51fcfb8c-572b-40e0-b5c0-035752fe1466">
-<img width="1045" alt="Screenshot 2024-05-17 at 8 39 36 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/3fadc246-4936-4c1f-a20a-8eff6f3de16b">
+<img width="1039" alt="Screenshot 2024-05-17 at 8 42 19 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/3bebbfad-55d2-49d9-9237-ef83a8c7de4f">
+<img width="1037" alt="Screenshot 2024-05-17 at 8 42 41 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/d0cd97d0-5ed5-495b-8c9a-c8db43130233">
 <img width="1040" alt="Screenshot 2024-05-17 at 8 39 51 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/56b20b16-7073-469d-8d9e-59255468ec69">
 <img width="1043" alt="Screenshot 2024-05-17 at 8 40 10 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/bea91e83-d337-44a2-b569-08cd06a96660">
 
