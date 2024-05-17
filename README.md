@@ -65,18 +65,20 @@ This data contains beneficiary KYC details like health conditions,regioregion th
       * Hospital Stays
       * Claim Length
       * physician_same: check for same physician in all three physician columns
-      * N_unique_values: count unique physicians in each claim
+      * N_Types_Physicians: count number of different physicians who appear in a claim
       * total_num_diag: count how many dx a claim has
       * total_num_proce: count how many proc a claim has
-      * sum: calculate the total number of claims for each 'BeneID'
-      * mean: calculate the mean amount of claims for each 'BeneID'
+      * total_claims_cost: calculate the total claim cost for each 'BeneID'
+      * total_claims_num: calculate the total number of claims for each 'BeneID'
+      * claims_cost_mean: calculate the mean cost for each 'BeneID'
   * Encoding Categorical Features
       * apply one-hot encoding on all proc code and dx code - cause sparse data issue
       * encode top 5 proc code and dx code
       * encoding types of physicians into numeric values
   * Feature Deletion
-      * drop features from which other features were created
+      * drop features from which other features were created 
 * Split data into train, validation, test dataset
+* Use SMOTE to balance the labels, but face overfitting issue. Use ENN+SMOTE to balance the data, but still face overfitting.
 * Normalization numerical columns
   *  calculates and stores the parameters necessary for normalization based on the training data
   *  normalize each column in train, validation, and test dataset
@@ -88,7 +90,7 @@ This data contains beneficiary KYC details like health conditions,regioregion th
 * Train the model with the best parameters
 * Get the score on the validation dataset
 #### Compare the performance of models
-![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/fe32f254-013e-4cad-92e3-96d0ebdf66dd)
+<img width="1064" alt="Screenshot 2024-05-17 at 8 38 00 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/e03ac1db-d1fc-4825-aa2e-cf1432588724">
 
 ### Using important features
 #### Models: LR, Decision Tree, Random Forest, Xg_Boost
@@ -96,10 +98,13 @@ This data contains beneficiary KYC details like health conditions,regioregion th
 * Train the model with the best parameters
 * Get the score on the validation dataset
 #### Compare the performance of models
-![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/ab4681a6-9945-4df7-b021-46cb72b8443d)
+<img width="1049" alt="Screenshot 2024-05-17 at 8 38 51 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/9b54983f-9729-46d4-b5d6-321b0a75f601">
 
 ### Comparison using all features VS Imp features
-![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/accfc96d-14cd-456e-a87e-123cf2920caa)
-![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/61f2efb8-fea4-4b4e-ae4a-f81be2d7189c)
+<img width="1052" alt="Screenshot 2024-05-17 at 8 39 18 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/51fcfb8c-572b-40e0-b5c0-035752fe1466">
+<img width="1045" alt="Screenshot 2024-05-17 at 8 39 36 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/3fadc246-4936-4c1f-a20a-8eff6f3de16b">
+<img width="1040" alt="Screenshot 2024-05-17 at 8 39 51 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/56b20b16-7073-469d-8d9e-59255468ec69">
+<img width="1043" alt="Screenshot 2024-05-17 at 8 40 10 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/bea91e83-d337-44a2-b569-08cd06a96660">
+
 
 **Conclusion**: There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
