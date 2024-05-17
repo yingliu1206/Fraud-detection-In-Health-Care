@@ -111,7 +111,7 @@ This data contains beneficiary KYC details like health conditions,regioregion th
 <img width="1043" alt="Screenshot 2024-05-17 at 8 40 10 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/bea91e83-d337-44a2-b569-08cd06a96660">
 
 
-**Conclusion**: 
+## Conclusions: 
 * Some beneficiaries listed below may be actively experiencing fraud or could be more susceptible to it:
   * Patients who have received high inpatient annual reimbursements.
   * Patients who belong to a specific race, labeled as 1.
