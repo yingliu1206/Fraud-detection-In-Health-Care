@@ -33,13 +33,14 @@ C) Beneficiary Details Data
 
 This data contains beneficiary KYC details like health conditions,regioregion they belong to etc.
 
-## EDA Before Data Preprocessing
+## EDA Analysis
 ### Inpatient findings
 * The top procedure is 4019.0. There are 6% patients undergoing this procedure. Based on ICD-9 Code, 4019 is Hypertension NOS (Unspecified essential hypertension).
 * The top diagnosis is also 4019. There are around 4.5% patients diagnosed as Hypertension NOS (Unspecified essential hypertension).
 * In the inpatient claims, providers are evenly distributed. There is no specific providers which submitted more claims than others.
 * More than 90% of paitients stayed in hospital less than 10 days.
 * The distribution of amount reimbursed in the inpatient claim seems like a log normal distribtion. The majority of amount falls between 0 and 20,000.
+![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/0d078066-1406-4e3d-8cf4-8fbbbe3c751d)
 
 ### Outpatient findings
 * The top procedure is 9904.0. There are around 7.3% patients undergoing this procedure. Based on ICD-9 Code, 9904 is Transfusion Of Packed Cells. 4516 is the second popular procedure, which is Esophagogastroduodenoscopy [Egd] With Closed Biopsy.
@@ -47,10 +48,13 @@ This data contains beneficiary KYC details like health conditions,regioregion th
 * Provider 'PRV51459' has around 1% more claims than other providers.
 * The majority of claim length is 1 day.
 * The claim reimbursed amount in outpaitent claims shows a rough log normal distribution. However, on the tail, there is a signal of outliers around $3500.
+![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/c4de1c5d-6d17-47e2-b080-a93ec5b886f4)
 
 ### Beneficiary Details findings
 * While there is no significant difference in the age distribution that would allow us to flag potential fraud, we do observe an increasing trend in potential fraud cases among patients aged 65 and older. Additionally, most patients who apply for claims fall within this age range.
 * A significant number of fraudulent cases involve patients belonging to a specific race, labeled as 1.
+![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/cd2c277d-6e93-4551-9a83-a1d91aafa5c9)
+![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/9d796676-f45e-4547-9c23-fad565221f86)
 
 ## Data Preprocessing
 * Merge OutPatient, Inpatient, and Beneficiary to get the whole dataset
@@ -107,4 +111,9 @@ This data contains beneficiary KYC details like health conditions,regioregion th
 <img width="1043" alt="Screenshot 2024-05-17 at 8 40 10 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/bea91e83-d337-44a2-b569-08cd06a96660">
 
 
-**Conclusion**: There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
+**Conclusion**: 
+* Some beneficiaries listed below may be actively experiencing fraud or could be more susceptible to it:
+  * Patients who have received high inpatient annual reimbursements.
+  * Patients who belong to a specific race, labeled as 1.
+  * Patients aged 65 and older
+
