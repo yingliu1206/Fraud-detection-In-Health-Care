@@ -77,7 +77,7 @@ This data contains beneficiary KYC details like health conditions,regioregion th
       * claims_cost_mean: calculate the mean cost for each 'BeneID'
   * Encoding Categorical Features
       * apply one-hot encoding on all proc code and dx code - cause sparse data issue
-      * encode top 5 proc code and dx code
+      * encode top 5 suspicious proc code and dx code
       * encoding types of physicians into numeric values
   * Feature Deletion
       * drop features from which other features were created 
@@ -116,4 +116,11 @@ This data contains beneficiary KYC details like health conditions,regioregion th
   * Patients who have received high inpatient annual reimbursements.
   * Patients who belong to a specific race, labeled as 1.
   * Patients aged 65 and older
-
+  * Patients States that encoded as 5, 30 and 33 have the highest number of patients who are associated with a fraud labeled medical provider.
+* The features that fraudulent claims may have:
+  * Include top 5 suspicious procedure code - '4019.0', '2724.0', '9904.0', '8154.0', '66.0', or top 5 suspicious diagnosis code - '4019', '25000', '2724', 'V5869', '42731'
+  * In states that encoded as 5, 30 and 33. These three states have the highest number of patients who are associated with a fraud labeled medical provider.
+* Modeling findings
+  * There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
+  * From XGBoost, important features are listed as below to classify the claims.
+![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/b5c97d8d-f076-413b-b4dd-71ee69bea5f7)
