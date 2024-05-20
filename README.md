@@ -123,3 +123,15 @@ This data contains beneficiary KYC details like health conditions,regioregion th
   * There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
   * From XGBoost, important features are listed as below to classify the claims.
 ![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/b5c97d8d-f076-413b-b4dd-71ee69bea5f7)
+
+
+## Limitations: 
+* Dataset：
+  * The label is assigned to providers, not individual claims. Therefore, attaching the label to each claim by merging with the provider table using "provider_id" is not ideal.
+  * Using private information features such as age, gender, and race is not recommended.
+* Models:
+  * Logistic Regression and Random Forest did not perform well. This poor performance is likely due to incorrect labeling resulting from improper merging, which prevents the models from learning correct patterns.
+
+## Future Work: 
+* Reframe the problem and create new features based on providers.
+* For the imblanced dataset, consider using class_weight during modeling to address class imbalance.
