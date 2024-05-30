@@ -1,5 +1,5 @@
 ## Project Objectives
-Provider Fraud is one of the biggest problems facing Medicare. According to the government, the total Medicare spending increased exponentially due to frauds in Medicare claims. Healthcare fraud is an organized crime which involves peers of providers, physicians, beneficiaries acting together to make fraud claims.
+Provider Fraud is one of the biggest problems facing Medicare. Based on the government statistics, the total Medicare spending increased exponentially due to frauds in Medicare claims. Healthcare fraud is an organized crime which involves peers of providers, physicians, beneficiaries acting together to make fraud claims.
 
 Rigorous analysis of Medicare data has yielded many physicians who indulge in fraud. They adopt ways in which an ambiguous diagnosis code is used to adopt costliest procedures and drugs. Insurance companies are the most vulnerable institutions impacted due to these bad practices. Due to this reason, insurance companies increased their insurance premiums and as result healthcare is becoming costly matter day by day.
 
@@ -76,7 +76,7 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * Use log transformation with shifting on right screwed columns
 * Label encoding categorical features
 * Check the correlation among features
-* * Split data into train, validation, test dataset
+* Split data into train, validation, test dataset
 
 ## EDA Analysis
 ### Plot the histogram and boxplots 
@@ -107,18 +107,9 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 
 
 ## Conclusions: 
-* Some beneficiaries listed below may be actively experiencing fraud or could be more susceptible to it:
-  * Patients who have received high inpatient annual reimbursements.
-  * Patients who belong to a specific race, labeled as 1.
-  * Patients aged 65 and older
-* The features that fraudulent claims may have:
-  * Include top 5 suspicious procedure code - '4019.0', '2724.0', '9904.0', '8154.0', '66.0', or top 5 suspicious diagnosis code - '4019', '25000', '2724', 'V5869', '42731'
-  * In states that encoded as 5, 30 and 33. These three states have the highest number of patients who are associated with a fraud labeled medical provider.
-* Modeling findings
-  * There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
-  * From XGBoost, important features are listed as below to classify the claims.
+* There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
+* From XGBoost, important features are listed as below to classify the claims.
 ![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/b5c97d8d-f076-413b-b4dd-71ee69bea5f7)
-
 
 ## Limitations: 
 * Dataset：
