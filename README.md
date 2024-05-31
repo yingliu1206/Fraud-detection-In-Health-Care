@@ -104,12 +104,6 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 #### Compare the performance of models
 <img width="1038" alt="Screenshot 2024-05-17 at 8 41 50 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/27ad2a5b-82ef-413e-a53b-4bd9a7c76a8b">
 
-### Comparison using all features VS Imp features
-<img width="1039" alt="Screenshot 2024-05-17 at 8 42 19 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/3bebbfad-55d2-49d9-9237-ef83a8c7de4f">
-<img width="1037" alt="Screenshot 2024-05-17 at 8 42 41 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/d0cd97d0-5ed5-495b-8c9a-c8db43130233">
-<img width="1040" alt="Screenshot 2024-05-17 at 8 39 51 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/56b20b16-7073-469d-8d9e-59255468ec69">
-<img width="1043" alt="Screenshot 2024-05-17 at 8 40 10 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/bea91e83-d337-44a2-b569-08cd06a96660">
-
 
 ## Conclusions: 
 * There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
