@@ -16,7 +16,7 @@ d) Charging for a more complex or expensive service than was actually provided.
 e) Billing for a covered service when the service actually provided was not covered.
 
 ## Problem Statement
-The goal of this project is to "predict the potentially fraudulent providers" based on their profile features, including the number of claims they have filed, their operating areas, their specialty - the most common diagnosis code, procedure code, the total reimbursement amount, and the like. Along with this, we will also discover important variables helpful in detecting the import features of potentially fraud providers. 
+The goal of this project is to "predict the potentially fraudulent providers" based on their profile features, including the number of claims they have filed, their operating areas, their specialty - the most common diagnosis code, procedure code, the total reimbursement amount, and the like. Along with this, we will also discover important variables helpful in detecting the potentially fraud providers. 
 
 ## Dataset
 For the purpose of this project, we are considering Inpatient claims, Outpatient claims and Beneficiary details of each provider.
