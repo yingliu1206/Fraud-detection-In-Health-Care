@@ -46,7 +46,8 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * Average inpatient deductible amount per claim 
 * Average inpatient claim length
 * Average hospital stay per claim
-* Encode the three physician columns: 'AttendingPhysician', 'OperatingPhysician', OtherPhysician' based on their relationship and get the most frequent relatinoship of each provider
+* Average number of physicians who attend a claim
+* Average number of types of physicians per claim
 * The most frequent ClmAdmitDiagnosisCode
 * The most frequent DiagnosisGroupCode
 * The most frequent ClmDiagnosisCode
@@ -57,12 +58,13 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * Average outpatient reimbursement amount per claim 
 * Average outpatient deductible amount per claim 
 * Average outpatient claim length
-* Encode the three physician columns: 'AttendingPhysician', 'OperatingPhysician', OtherPhysician' based on their relationship and get the most frequent relatinoship of each provider
+* Average number of physicians who attend a claim
+* Average number of types of physicians per claim
 * The most frequent ClmAdmitDiagnosisCode
 * The most frequent ClmDiagnosisCode
 
 ### From beneficiary data
-* Average number of death cases
+* Mortality rate
 * Average patients' age
 * Distinct count of state
 * Distinct count of county
@@ -72,11 +74,14 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * Merge three dataframes and add labels
 * Check the balance of the label
 * Replace null with 0 for numerical columns
-* Figure out the outliers of numerical features
+* EDA analysis
+  * boxplots to find the outliers
+  * histogram to check the distribution of numerical columns
 * Use log transformation with shifting on right screwed columns
 * Label encoding categorical features
 * Check the correlation among features
 * Split data into train, validation, test dataset
+* Fit StandardScaler on the training data and then apply parameters on the validation and test datasets
 
 ## EDA Analysis
 ### Plot the histogram and boxplots 
@@ -84,7 +89,7 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 
 ## Modeling
 ### Using all features
-#### Models: LR, Decision Tree, Random Forest, Xg_Boost
+#### Models: SVM, Decision Tree, Random Forest, Xg_Boost
 * Use GridSearchCV to find the optimal parameters
 * Train the model with the best parameters
 * Get the score on the validation dataset
@@ -92,7 +97,7 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 <img width="1038" alt="Screenshot 2024-05-17 at 8 41 00 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/9b87fee0-4779-40e5-95ca-867944c85769">
 
 ### Using important features
-#### Models: LR, Decision Tree, Random Forest, Xg_Boost
+#### Models: SVM, Decision Tree, Random Forest, Xg_Boost
 * Use GridSearchCV to find the optimal parameters
 * Train the model with the best parameters
 * Get the score on the validation dataset
@@ -110,6 +115,7 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
 * From XGBoost, important features are listed as below to classify the claims.
 ![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/b5c97d8d-f076-413b-b4dd-71ee69bea5f7)
+* The modality rate, outpatient reimbursement, and outpatient deductible show different trends between labels 0 and 1.
 
 ## Limitations: 
 * Dataset：
