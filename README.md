@@ -71,25 +71,17 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * Average Charlson Comorbidity Index(CCI) of patients for each provider
 
 ## EDA Analysis
-### Comparison between lable 1 and 0 in numerical columns
+### Comparison between lable 1 and 0 on numerical columns
 
+### Comparison between lable 1 and 0 on categorical columns
 
 
 ## Data Preprocessing
-* Merge three dataframes and add labels
-* Check the balance of the label
-* Replace null with 0 for numerical columns
-* EDA analysis
-  * boxplots to find the outliers
-  * histogram to check the distribution of numerical columns
 * Use log transformation with shifting on right screwed columns
 * Label encoding categorical features
 * Check the correlation among features
 * Split data into train, validation, test dataset
 * Fit StandardScaler on the training data and then apply parameters on the validation and test datasets
-
-
-
 
 ## Modeling
 ### Using all features
