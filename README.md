@@ -111,7 +111,7 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
 * From XGBoost, important features are listed as below to classify the claims.
 ![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/b5c97d8d-f076-413b-b4dd-71ee69bea5f7)
-* The modality rate, outpatient reimbursement, and outpatient deductible amount exhibit distinct trends between labels 0 and 1. Fraudulent providers are typically billed with high outpatient reimbursement claims, and the deductible amount is also usually higher.
+* The number of states, number of counties, outpatient reimbursement, and outpatient deductible amount exhibit distinct trends between labels 0 and 1. Fraudulent providers are typically billed with high outpatient reimbursement claims, and the deductible amount is also usually higher. Additionally, they cover a wider range of areas compared to non-fraudulent providers and are more likely to include multiple physicians and physician types in a claim.
 
 ## Limitations: 
 * Dataset：
