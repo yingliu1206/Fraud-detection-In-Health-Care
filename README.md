@@ -93,7 +93,8 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * Train the model with the best parameters
 * Get the score on the validation dataset
 #### Compare the performance of models
-<img width="1038" alt="Screenshot 2024-05-17 at 8 41 00 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/9b87fee0-4779-40e5-95ca-867944c85769">
+<img width="1183" alt="image" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/d5fe31c6-c58b-4734-a663-60935efe4649">
+
 
 ### Using important features
 #### Models: SVM, Decision Tree, Random Forest, Xg_Boost
