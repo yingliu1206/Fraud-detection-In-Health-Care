@@ -70,6 +70,11 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * Distinct count of county
 * Average Charlson Comorbidity Index(CCI) of patients for each provider
 
+## EDA Analysis
+### Comparison between lable 1 and 0 in numerical columns
+
+
+
 ## Data Preprocessing
 * Merge three dataframes and add labels
 * Check the balance of the label
@@ -83,8 +88,7 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * Split data into train, validation, test dataset
 * Fit StandardScaler on the training data and then apply parameters on the validation and test datasets
 
-## EDA Analysis
-### Plot the histogram and boxplots 
+
 
 
 ## Modeling
@@ -115,7 +119,7 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
 * From XGBoost, important features are listed as below to classify the claims.
 ![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/b5c97d8d-f076-413b-b4dd-71ee69bea5f7)
-* The modality rate, outpatient reimbursement, and outpatient deductible show different trends between labels 0 and 1.
+* The modality rate, outpatient reimbursement, and outpatient deductible amount exhibit distinct trends between labels 0 and 1. Fraudulent providers are typically billed with high outpatient reimbursement claims, and the deductible amount is also usually higher.
 
 ## Limitations: 
 * Dataset：
