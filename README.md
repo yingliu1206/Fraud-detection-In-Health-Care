@@ -76,7 +76,7 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 
 
 ### Comparison between lable 1 and 0 on categorical columns
-![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/2acebcb1-0e66-4faf-bff1-78da43358da8)
+![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/59ac5834-8882-4591-9d1f-bdd8df600af1)
 
 
 ## Data Preprocessing
