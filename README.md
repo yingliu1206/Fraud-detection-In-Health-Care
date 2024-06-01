@@ -72,9 +72,12 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 
 ## EDA Analysis
 ### Comparison between lable 1 and 0 on numerical columns
+![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/0e7ce3ca-8c99-4aad-b00a-834c40b82800)
+
 
 ### Comparison between lable 1 and 0 on categorical columns
-
+![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/0302ba56-3e04-4144-895b-0accb9d7269d)
+![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/a0f34e0d-b5a7-492b-9fa4-3e32a84fc51f)
 
 ## Data Preprocessing
 * Use log transformation with shifting on right screwed columns
@@ -90,7 +93,8 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * Train the model with the best parameters
 * Get the score on the validation dataset
 #### Compare the performance of models
-<img width="1038" alt="Screenshot 2024-05-17 at 8 41 00 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/9b87fee0-4779-40e5-95ca-867944c85769">
+<img width="1183" alt="image" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/d5fe31c6-c58b-4734-a663-60935efe4649">
+
 
 ### Using important features
 #### Models: SVM, Decision Tree, Random Forest, Xg_Boost
@@ -100,18 +104,12 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 #### Compare the performance of models
 <img width="1038" alt="Screenshot 2024-05-17 at 8 41 50 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/27ad2a5b-82ef-413e-a53b-4bd9a7c76a8b">
 
-### Comparison using all features VS Imp features
-<img width="1039" alt="Screenshot 2024-05-17 at 8 42 19 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/3bebbfad-55d2-49d9-9237-ef83a8c7de4f">
-<img width="1037" alt="Screenshot 2024-05-17 at 8 42 41 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/d0cd97d0-5ed5-495b-8c9a-c8db43130233">
-<img width="1040" alt="Screenshot 2024-05-17 at 8 39 51 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/56b20b16-7073-469d-8d9e-59255468ec69">
-<img width="1043" alt="Screenshot 2024-05-17 at 8 40 10 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/bea91e83-d337-44a2-b569-08cd06a96660">
-
 
 ## Conclusions: 
 * There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
 * From XGBoost, important features are listed as below to classify the claims.
 ![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/b5c97d8d-f076-413b-b4dd-71ee69bea5f7)
-* The modality rate, outpatient reimbursement, and outpatient deductible amount exhibit distinct trends between labels 0 and 1. Fraudulent providers are typically billed with high outpatient reimbursement claims, and the deductible amount is also usually higher.
+* The number of states, number of counties, outpatient reimbursement, and outpatient deductible amount exhibit distinct trends between labels 0 and 1. Fraudulent providers are typically billed with high outpatient reimbursement claims, and the deductible amount is also usually higher. Additionally, they cover a wider range of areas compared to non-fraudulent providers and are more likely to include multiple physicians and physician types in a claim.
 
 ## Limitations: 
 * Dataset：
