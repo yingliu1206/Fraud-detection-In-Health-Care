@@ -128,18 +128,13 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 <img width="1003" alt="image" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/2c77f93b-8f06-4a12-a6af-c58994fd7f05">
 
 ## Conclusions: 
-* There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
-* From XGBoost, important features are listed as below to classify the claims.
-![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/b5c97d8d-f076-413b-b4dd-71ee69bea5f7)
-* The number of states, number of counties, outpatient reimbursement, and outpatient deductible amount exhibit distinct trends between labels 0 and 1. Fraudulent providers are typically billed with high outpatient reimbursement claims, and the deductible amount is also usually higher. Additionally, they cover a wider range of areas compared to non-fraudulent providers and are more likely to include multiple physicians and physician types in a claim.
+* There is not a significant difference in model performance between using all features and using selected features. However, we observe slightly better performance, such as recall in the random forest model, when using all features.
+* The number of states, number of counties, outpatient reimbursement, and outpatient deductible amount show distinct trends between labels 0 and 1. Fraudulent providers typically bill higher outpatient reimbursement claims, and the deductible amounts are also usually higher. Additionally, they cover a wider range of areas compared to non-fraudulent providers and are more likely to include multiple physicians and physician types in a claim.
+* From the random forest model, important features for classifying claims are listed as below:
+<img width="896" alt="image" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/8e792dc7-bccc-4bd4-a805-652e93f1ddb3">
 
 ## Limitations: 
-* Dataset：
-  * The label is assigned to providers, not individual claims. Therefore, attaching the label to each claim by merging with the provider table using "provider_id" is not ideal.
-  * Using private information features such as age, gender, and race is not recommended.
-* Models:
-  * Logistic Regression and Random Forest did not perform well. This poor performance is likely due to incorrect labeling resulting from improper merging, which prevents the models from learning correct patterns.
+The label is assigned to providers, not individual claims. Therefore, merging the label with each claim by using the "provider_id" is not ideal. As a result, we reframed the problem to focus on identifying features of fraudulent providers rather than fraudulent claims. However, in reality, even providers with a high likelihood of being fraudulent may have both legitimate and fraudulent claims. Directing attention to all their claims may result in resource wastage. Thus, it would be more efficient to label each claim and train a model to predict the probability of fraudulent claims. This approach could yield more actionable insights.
 
 ## Future Work: 
-* Reframe the problem and create new features based on providers.
-* For the imblanced dataset, consider using class_weight during modeling to address class imbalance.
+Exploring better data resources for claims would be valuable for future work. Identifying and incorporating additional data sources could enhance the accuracy and effectiveness of fraud detection models.
