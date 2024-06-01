@@ -1,44 +1,44 @@
 ## Project Objectives
-Provider Fraud is one of the biggest problems facing Medicare. Based on the government statistics, the total Medicare spending increased exponentially due to frauds in Medicare claims. Healthcare fraud is an organized crime which involves peers of providers, physicians, beneficiaries acting together to make fraud claims.
+Provider fraud is one of the most significant challenges facing Medicare today. According to government statistics, Medicare spending has increased dramatically due to fraudulent claims. Healthcare fraud often involves organized crime, with networks of providers, physicians, and beneficiaries collaborating to submit fraudulent claims.
 
-Rigorous analysis of Medicare data has yielded many physicians who indulge in fraud. They adopt ways in which an ambiguous diagnosis code is used to adopt costliest procedures and drugs. Insurance companies are the most vulnerable institutions impacted due to these bad practices. Due to this reason, insurance companies increased their insurance premiums and as result healthcare is becoming costly matter day by day.
+Through rigorous analysis of Medicare data, numerous physicians engaging in fraudulent activities have been identified. They frequently use ambiguous diagnosis codes to justify the most expensive procedures and drugs. Insurance companies are particularly vulnerable to these practices. Consequently, they have raised insurance premiums, making healthcare increasingly expensive.
 
-Healthcare fraud and abuse take many forms. Some of the most common types of frauds by providers are:
+Healthcare fraud and abuse take many forms. Common types of provider fraud include:
 
 a) Billing for services that were not provided.
 
-b) Duplicate submission of a claim for the same service.
+b) Submitting duplicate claims for the same service.
 
-c) Misrepresenting the service provided.
+c) Misrepresenting the services provided.
 
-d) Charging for a more complex or expensive service than was actually provided.
+d) Charging for more complex or expensive services than were actually delivered.
 
-e) Billing for a covered service when the service actually provided was not covered.
+e) Billing for a covered service when a non-covered service was provided.
 
 ## Problem Statement
-The goal of this project is to "predict the potentially fraudulent providers" based on their profile features, including the number of claims they have filed, their operating areas, their specialty - the most common diagnosis code, procedure code, the total reimbursement amount, and the like. Along with this, we will also discover important variables helpful in detecting the potentially fraud providers. 
+The goal of this project is to predict potentially fraudulent providers based on their profile features. These features include the number of claims filed, operating areas, specialty, most common diagnosis codes, procedure codes, total reimbursement amounts, and other relevant data. Additionally, we aim to identify key variables that are instrumental in detecting potentially fraudulent providers.
 
 ## Dataset
-For the purpose of this project, we are considering Inpatient claims, Outpatient claims and Beneficiary details of each provider.
+For this project, we are considering the following datasets: Inpatient claims, Outpatient claims, Beneficiary details, and Provider information.
 
 A) Inpatient Data
 
-This data provides insights about the claims filed for those patients who are admitted in the hospitals. It also provides additional details like their admission and discharge dates and admit diagnosis code.
+This dataset provides insights into claims filed for patients admitted to hospitals. It includes details such as admission and discharge dates, and admission diagnosis codes.
 
 B) Outpatient Data
 
-This data provides details about the claims filed for those patients who visit hospitals and not admitted in it.
+This dataset contains information about claims filed for patients who visit hospitals but are not admitted.
 
 C) Beneficiary Details Data
 
-This data contains beneficiary KYC details like health conditions,region they belong to etc.
+This dataset includes beneficiary Know Your Customer (KYC) details, such as health conditions and the region they belong to.
 
 D) Provider Data
 
-It contains two columns - provider ID and the label PotentialFraud(Yes/No).
+This dataset consists of two columns: Provider ID and the label PotentialFraud (Yes/No).
 
 ## Feature Engineering
-Since we don’t have the labels for each claim, we cannot simply join the datasets by provider_id and assign the provider label to each claim. What we will do instead is create features that can portray the provider and then attach them to the provider data.
+Since we don’t have labels for each claim, we cannot directly join the datasets by provider_id and assign the provider label to each claim. Instead, we will create features that represent the provider and then attach them to the provider data.
 
 ### From inpatient data
 * Average inpatient claims per patient 
@@ -46,7 +46,7 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * Average inpatient deductible amount per claim 
 * Average inpatient claim length
 * Average hospital stay per claim
-* Average number of physicians who attend a claim
+* Average number of physicians attending a claim
 * Average number of types of physicians per claim
 * The most frequent ClmAdmitDiagnosisCode
 * The most frequent DiagnosisGroupCode
@@ -58,14 +58,14 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 * Average outpatient reimbursement amount per claim 
 * Average outpatient deductible amount per claim 
 * Average outpatient claim length
-* Average number of physicians who attend a claim
+* Average number of physicians attending a claim
 * Average number of types of physicians per claim
 * The most frequent ClmAdmitDiagnosisCode
 * The most frequent ClmDiagnosisCode
 
 ### From beneficiary data
 * Mortality rate
-* Average patients' age
+* Average patient age
 * Distinct count of state
 * Distinct count of county
 * Average Charlson Comorbidity Index(CCI) of patients for each provider
@@ -80,27 +80,51 @@ Since we don’t have the labels for each claim, we cannot simply join the datas
 ![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/a0f34e0d-b5a7-492b-9fa4-3e32a84fc51f)
 
 ## Data Preprocessing
-* Use log transformation with shifting on right screwed columns
-* Label encoding categorical features
-* Check the correlation among features
-* Split data into train, validation, test dataset
-* Fit StandardScaler on the training data and then apply parameters on the validation and test datasets
+1. Log Transformation with Shifting on Right-Skewed Columns:
+* Apply log transformation to right-skewed columns to normalize the distribution. Add a constant shift to handle zero or negative values.
+
+2. Label Encoding Categorical Features:
+* Convert categorical features into numerical values using label encoding.
+
+3. Check Correlation Among Features:
+* Analyze the correlation matrix to identify highly correlated features and reduce multicollinearity.
+
+4. Split Data into Train, Validation, and Test Datasets:
+* Divide the data into training, validation, and test sets to evaluate the model's performance.
+
+5. Standardize Features:
+* Fit a StandardScaler on the training data to normalize feature scales and then apply the same parameters to the validation and test datasets.
 
 ## Modeling
 ### Using all features
-#### Models: SVM, Decision Tree, Random Forest, Xg_Boost
-* Use GridSearchCV to find the optimal parameters
-* Train the model with the best parameters
-* Get the score on the validation dataset
+#### Models: SVM, Decision Tree, Random Forest, XGBoost
+1. Use GridSearchCV to Find the Optimal Parameters
+* Perform hyperparameter tuning for each model using GridSearchCV to identify the best parameters.
+
+2. Train the Model with the Best Parameters
+* Train each model using the optimal parameters obtained from GridSearchCV.
+
+3. Evaluate the Model on the Validation Dataset
+* Assess the performance of each model on the validation dataset and record the scores.
+
 #### Compare the performance of models
-<img width="1183" alt="image" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/d5fe31c6-c58b-4734-a663-60935efe4649">
+
 
 
 ### Using important features
-#### Models: SVM, Decision Tree, Random Forest, Xg_Boost
-* Use GridSearchCV to find the optimal parameters
-* Train the model with the best parameters
-* Get the score on the validation dataset
+#### Models: SVM, Decision Tree, Random Forest, XGBoost
+1. Select Important Features Based on Random Forest Output
+* Utilize the feature importances derived from the Random Forest model to select the most relevant features.
+
+2. Use GridSearchCV to Find the Optimal Parameters:
+* Perform hyperparameter tuning for each model using GridSearchCV to identify the best parameters.
+
+3. Train the Model with the Best Parameters:
+* Train each model using the optimal parameters obtained from GridSearchCV.
+
+4. Evaluate the Model on the Validation Dataset:
+* Assess the performance of each model on the validation dataset and record the scores.
+
 #### Compare the performance of models
 <img width="1038" alt="Screenshot 2024-05-17 at 8 41 50 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/27ad2a5b-82ef-413e-a53b-4bd9a7c76a8b">
 
