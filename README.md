@@ -80,54 +80,52 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 ![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/a0f34e0d-b5a7-492b-9fa4-3e32a84fc51f)
 
 ## Data Preprocessing
-1. Log Transformation with Shifting on Right-Skewed Columns:
-* Apply log transformation to right-skewed columns to normalize the distribution. Add a constant shift to handle zero or negative values.
+* Log Transformation with Shifting on Right-Skewed Columns:
+  * Apply log transformation to right-skewed columns to normalize the distribution. Add a constant shift to handle zero or negative values.
 
-2. Label Encoding Categorical Features:
-* Convert categorical features into numerical values using label encoding.
+* Label Encoding Categorical Features:
+  * Convert categorical features into numerical values using label encoding.
 
-3. Check Correlation Among Features:
-* Analyze the correlation matrix to identify highly correlated features and reduce multicollinearity.
+* Check Correlation Among Features:
+  * Analyze the correlation matrix to identify highly correlated features and reduce multicollinearity.
 
-4. Split Data into Train, Validation, and Test Datasets:
-* Divide the data into training, validation, and test sets to evaluate the model's performance.
+* Split Data into Train, Validation, and Test Datasets:
+  * Divide the data into training, validation, and test sets to evaluate the model's performance.
 
-5. Standardize Features:
-* Fit a StandardScaler on the training data to normalize feature scales and then apply the same parameters to the validation and test datasets.
+* Standardize Features:
+  * Fit a StandardScaler on the training data to normalize feature scales and then apply the same parameters to the validation and test datasets.
 
 ## Modeling
 ### Using all features
 #### Models: SVM, Decision Tree, Random Forest, XGBoost
-1. Use GridSearchCV to Find the Optimal Parameters
-* Perform hyperparameter tuning for each model using GridSearchCV to identify the best parameters.
+* Use GridSearchCV to Find the Optimal Parameters
+  * Perform hyperparameter tuning for each model using GridSearchCV to identify the best parameters.
 
-2. Train the Model with the Best Parameters
-* Train each model using the optimal parameters obtained from GridSearchCV.
+* Train the Model with the Best Parameters
+  * Train each model using the optimal parameters obtained from GridSearchCV.
 
-3. Evaluate the Model on the Validation Dataset
-* Assess the performance of each model on the validation dataset and record the scores.
+* Evaluate the Model on the Validation Dataset
+  * Assess the performance of each model on the validation dataset and record the scores.
 
 #### Compare the performance of models
-
-
+<img width="1005" alt="image" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/8f728312-a866-48c8-a8fb-9453ede392df">
 
 ### Using important features
 #### Models: SVM, Decision Tree, Random Forest, XGBoost
-1. Select Important Features Based on Random Forest Output
-* Utilize the feature importances derived from the Random Forest model to select the most relevant features.
+* Select Important Features Based on Random Forest Output
+  * Utilize the feature importances derived from the Random Forest model to select the most relevant features.
 
-2. Use GridSearchCV to Find the Optimal Parameters:
-* Perform hyperparameter tuning for each model using GridSearchCV to identify the best parameters.
+* Use GridSearchCV to Find the Optimal Parameters:
+  * Perform hyperparameter tuning for each model using GridSearchCV to identify the best parameters.
 
-3. Train the Model with the Best Parameters:
-* Train each model using the optimal parameters obtained from GridSearchCV.
+* Train the Model with the Best Parameters:
+  * Train each model using the optimal parameters obtained from GridSearchCV.
 
-4. Evaluate the Model on the Validation Dataset:
-* Assess the performance of each model on the validation dataset and record the scores.
+* Evaluate the Model on the Validation Dataset:
+  * Assess the performance of each model on the validation dataset and record the scores.
 
 #### Compare the performance of models
-<img width="1038" alt="Screenshot 2024-05-17 at 8 41 50 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/27ad2a5b-82ef-413e-a53b-4bd9a7c76a8b">
-
+<img width="1003" alt="image" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/2c77f93b-8f06-4a12-a6af-c58994fd7f05">
 
 ## Conclusions: 
 * There is not a significant difference in model performance between using all features and using selected features. However, we do observe slightly better performance in some models when using all features.
