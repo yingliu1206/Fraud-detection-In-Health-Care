@@ -40,7 +40,7 @@ This dataset consists of two columns: Provider ID and the label PotentialFraud (
 ## Feature Engineering
 Since we don’t have labels for each claim, we cannot directly join the datasets by provider_id and assign the provider label to each claim. Instead, we will create features that represent the provider and then attach them to the provider data.
 
-### From inpatient data
+### From inpatient data - group by provider
 * Average inpatient claims per patient 
 * Average inpatient reimbursement amount per claim 
 * Average inpatient deductible amount per claim 
@@ -53,7 +53,7 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 * The most frequent ClmDiagnosisCode
 * The most frequent ClmProcedureCode
 
-### From outpatient data
+### From outpatient data - group by provider
 * Average outpatient claims per patient 
 * Average outpatient reimbursement amount per claim 
 * Average outpatient deductible amount per claim 
@@ -63,7 +63,7 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 * The most frequent ClmAdmitDiagnosisCode
 * The most frequent ClmDiagnosisCode
 
-### From beneficiary data
+### From beneficiary data - group by provider
 * Mortality rate
 * Average patient age
 * Distinct count of state
@@ -80,20 +80,38 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 ![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/a0f34e0d-b5a7-492b-9fa4-3e32a84fc51f)
 
 ## Data Preprocessing
+* Process null values
+  * Replace numeric null values with 0. Null values mean the provider doesn't have corresponding inpatient or outpaitent records. 
+  * Replace categorical null values with 'None'.
+
 * Log Transformation with Shifting on Right-Skewed Columns:
-  * Apply log transformation to right-skewed columns to normalize the distribution. Add a constant shift to handle zero or negative values.
+  * Apply log transformation to right-skewed columns to normalize the distribution. Add a constant shift to handle zero or negative values. But it cannot convert all features to normal distribution.
+
+  * Check outliers
+  * Set Q1 - 1.5 * IQR and Q3 + 1.5 * IQR as boundary to define outliers
+  * Apply robust scaling and then apply min-max scaling to solve outliers, but the min-max scaling was still heavily affected by the extreme values.
+  * Apply winsorization by 10%. The remaning outliers are not extreme values, so it didn't screw the dataset when applying minmax scaler.
 
 * Label Encoding Categorical Features:
   * Convert categorical features into numerical values using label encoding.
 
 * Check Correlation Among Features:
   * Analyze the correlation matrix to identify highly correlated features and reduce multicollinearity.
+  * There are 12 groups of features which coefficient is more than 0.7.
+  * Use VIF to do feature selection: the remaining features still include the highly correlated columns, like num_state and num_county.
+  * Feature Engineering: Combine or create new features to reduce multicollinearity
+    * Create a new column 'avg_ip_cost': (avg_ip_reimbursement_per_claim + avg_ip_deductible_per_claim)*'avg_ip_claims_per_pat'
+    * delete features: 'num_County', 'avg_op_phy_type', 'avg_ip_reimbursement_per_claim'
+                , 'avg_ip_deductible_per_claim', 'avg_ip_claims_per_pat'
+                , 'avg_ip_claim_len', 'avg_ip_phy_num', 'avg_ip_phy_type'
+                , 'Top_5_ClmDiagnosisCode_ip', 'Top_5_ClmAdmitDiagnosisCode_ip'
+                , 'Top_5_DiagnosisGroupCode_ip', 'Top_5_ClmProcedureCode_ip', 'avg_ip_hosp'
 
 * Split Data into Train, Validation, and Test Datasets:
   * Divide the data into training, validation, and test sets to evaluate the model's performance.
 
-* Standardize Features:
-  * Fit a StandardScaler on the training data to normalize feature scales and then apply the same parameters to the validation and test datasets.
+* Normalize Features:
+  * Fit a MinmaxScaler on the training data to normalize feature scales and then apply the same parameters to the validation and test datasets.
 
 ## Modeling
 ### Using all features
@@ -137,9 +155,10 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 The label is assigned to providers, not individual claims. Therefore, merging the label with each claim by using the "provider_id" is not ideal. As a result, we reframed the problem to focus on identifying features of fraudulent providers rather than fraudulent claims. However, in reality, even providers with a high likelihood of being fraudulent may have both legitimate and fraudulent claims. Directing attention to all their claims may result in resource wastage. Thus, it would be more efficient to label each claim and train a model to predict the probability of fraudulent claims. This approach could yield more actionable insights.
 
 ## Future Work: 
-Exploring better data resources for claims would be valuable for future work. Identifying and incorporating additional data sources could enhance the accuracy and effectiveness of fraud detection models.
+* Exploring better data resources for claims would be valuable for future work. Identifying and incorporating additional data sources could enhance the accuracy and effectiveness of fraud detection models.
+* Make script in a pipeline format
 
-## technical learning
+## technical takeaways
 * Outliers:
 
 ** Check outliers: 
@@ -181,6 +200,21 @@ The fractional part of R is 0.8.
 2. PCA: Reduces dimensionality and handles multicollinearity. But we have to apply PCA after scaling on the whole dataset. This may bring overfitting.
 3. Regularization: Ridge and Lasso regression handle multicollinearity.
 4. VIF: Identify and remove features with high VIF values.
+VIF quantifies how much the variance of a regression coefficient is inflated due to multicollinearity in the model.
+Regression of Each Predictor on Others:
+
+Regress X1​ on X2​ and X3​.
+Regress X2​ on X1​ and X3​.
+Regress X3​ on X1​ and X2​.
+Calculation of R2:
+
+For each regression, compute the R2 value, which represents how well the predictor can be explained by the other predictors.
+Compute VIF:
+
+Use the formula VIF(Xi​)=1−1/Ri2​​ to compute VIF for each predictor.
+
+Ri2​ higher vif higher. It means the predictor is easier to be predicted by other features.
+
 5. Feature Engineering: Combine or create new features to reduce multicollinearity.
 
 ** modeling:
