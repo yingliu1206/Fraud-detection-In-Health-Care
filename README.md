@@ -138,3 +138,53 @@ The label is assigned to providers, not individual claims. Therefore, merging th
 
 ## Future Work: 
 Exploring better data resources for claims would be valuable for future work. Identifying and incorporating additional data sources could enhance the accuracy and effectiveness of fraud detection models.
+
+## technical learning
+* Outliers:
+
+** Check outliers: 
+1.	Z-score
+2.	Interquartile Range (IQR):
+Q1 = np.percentile(data, 25) 
+Q3 = np.percentile(data, 75)
+IQR(Interquartile Range ) = Q3 - Q1 
+lower_bound = Q1 - 1.5 * IQR 
+upper_bound = Q3 + 1.5 * IQR
+
+eg. calculate 30th percentile
+1) Sort the Data: [15, 20, 35, 40, 50]
+2) Number of Observations: n=5
+3) Calculate the Rank (Index): (n+1) * 30/100 -> 6*0.3 = 1.8
+Since 1.8 is not an integer, interpolate between the 1st and 2nd values in the sorted list.
+4) Interpolate
+The 1st value is 15.
+The 2nd value is 20.
+The fractional part of R is 0.8.
+15 + 0.8*(20-15) = 19
+
+3. identify outliers whether it is a human error or just extreme value
+
+** method: 
+1. Trimming amounts to simply removing the outliers from the dataset - for human errors
+2. Clipping: sets outliers to predefined boundary values.
+3. Winsorization: rather than setting them to the boundary values directly, Winsorization replaces extreme values with less extreme values within a specified percentile range.
+3. By using RobustScaler(), we can remove the outliers and then use either StandardScaler or MinMaxScaler for preprocessing the dataset. Since robust scaling cannot fit the features into a certain range or standard scale. But in our case, the effect is almost similar with directly applying MinMaxScaler.
+
+* transformation
+** Log Transformation with Shifting on right screwed columns: cannot always convert data into normal distribution
+
+* encoding
+** when you have column the values is in a list format, we can do one-hot encoding. But if there are too many distinct values in your list of your column, it will cause sparse data issue.
+
+* multicollinearity
+1. Remove Highly Correlated Features: Simplest and often effective.
+2. PCA: Reduces dimensionality and handles multicollinearity. But we have to apply PCA after scaling on the whole dataset. This may bring overfitting.
+3. Regularization: Ridge and Lasso regression handle multicollinearity.
+4. VIF: Identify and remove features with high VIF values.
+5. Feature Engineering: Combine or create new features to reduce multicollinearity.
+
+** modeling:
+1. WOE in logistic regression
+2. the prerequisites for logistic regression
+3. class_weight parameters for tree algorithm
+4. Models that do not have strict assumptions about multicollinearity are generally those that are non-linear or ensemble-based methods. These models do not require the predictors to be independent of each other and can handle correlated features better than linear models. eg. decision tree, random forests, XGBoost, SVM, KNN, neural networks.
