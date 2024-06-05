@@ -95,18 +95,6 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 * Label Encoding Categorical Features:
   * Convert categorical features into numerical values using label encoding.
 
-* Check Correlation Among Features:
-  * Analyze the correlation matrix to identify highly correlated features and reduce multicollinearity.
-  * There are 12 groups of features which coefficient is more than 0.7.
-  * Use VIF to do feature selection: the remaining features still include the highly correlated columns, like num_state and num_county.
-  * Feature Engineering: Combine or create new features to reduce multicollinearity
-    * Create a new column 'avg_ip_cost': (avg_ip_reimbursement_per_claim + avg_ip_deductible_per_claim)*'avg_ip_claims_per_pat'
-    * delete features: 'num_County', 'avg_op_phy_type', 'avg_ip_reimbursement_per_claim'
-                , 'avg_ip_deductible_per_claim', 'avg_ip_claims_per_pat'
-                , 'avg_ip_claim_len', 'avg_ip_phy_num', 'avg_ip_phy_type'
-                , 'Top_5_ClmDiagnosisCode_ip', 'Top_5_ClmAdmitDiagnosisCode_ip'
-                , 'Top_5_DiagnosisGroupCode_ip', 'Top_5_ClmProcedureCode_ip', 'avg_ip_hosp'
-
 * Split Data into Train, Validation, and Test Datasets:
   * Divide the data into training, validation, and test sets to evaluate the model's performance.
 
@@ -195,30 +183,52 @@ The fractional part of R is 0.8.
 * encoding
 ** when you have column the values is in a list format, we can do one-hot encoding. But if there are too many distinct values in your list of your column, it will cause sparse data issue.
 
-* multicollinearity
-1. Remove Highly Correlated Features: Simplest and often effective.
-2. PCA: Reduces dimensionality and handles multicollinearity. But we have to apply PCA after scaling on the whole dataset. This may bring overfitting.
-3. Regularization: Ridge and Lasso regression handle multicollinearity.
-4. VIF: Identify and remove features with high VIF values.
-VIF quantifies how much the variance of a regression coefficient is inflated due to multicollinearity in the model.
-Regression of Each Predictor on Others:
-
+* multicollinearity measurement: assumes linear relationship between variables
+** Correlation Matrix - Pearson correlation coefficient = Cov(X,Y)/(stdev(X)*stdev(Y)) 
+    * It examines pairwise linear relationships.
+** VIF: variance inflation factor quantifies how much the variance of a regression coefficient is inflated due to multicollinearity in the model. 
+    * Fit the Regression model of Each Predictor on Others:
 Regress X1​ on X2​ and X3​.
 Regress X2​ on X1​ and X3​.
 Regress X3​ on X1​ and X2​.
-Calculation of R2:
 
-For each regression, compute the R2 value, which represents how well the predictor can be explained by the other predictors.
+Calculation of R-squared:
+R-squared = 1- (residual sum of squares/ total sum of squares)
+For each regression, compute the R-squared value, which represents how well the predictor can be explained by the other predictors.
+
 Compute VIF:
+Use the formula VIF(Xi​)=1−1/Ri-squared​​ to compute VIF for each predictor.
+Ri-squared​​ higher vif higher. It means the predictor is easier to be predicted by other features.
 
-Use the formula VIF(Xi​)=1−1/Ri2​​ to compute VIF for each predictor.
-
-Ri2​ higher vif higher. It means the predictor is easier to be predicted by other features.
-
-5. Feature Engineering: Combine or create new features to reduce multicollinearity.
+** Solution:
+1. Based on correlation coefficient and domain knowledge, select and remove highly correlated features.
+2. Based on correlation coefficient and WOE, select and remove highly correlated features
+3. PCA: Reduces dimensionality and handles multicollinearity. But we have to apply PCA after scaling on the whole dataset. This may bring overfitting.
+4. Regularization: Ridge and Lasso regression handle multicollinearity.
+5. Remove features whose VIF > 10
+6. Feature Engineering: Combine or create new features to reduce multicollinearity.
 
 ** modeling:
 1. WOE in logistic regression
 2. the prerequisites for logistic regression
+  * binary target
+  * no multicollinearity between the predictor variables - heatmap (correlation matrix)
+  * linear relationship between the logit (log-odds) of the outcome and each predictor variable (lr assumption)
+  * prefer large sample size
+  * Problem with extreme outliers
+  
 3. class_weight parameters for tree algorithm
 4. Models that do not have strict assumptions about multicollinearity are generally those that are non-linear or ensemble-based methods. These models do not require the predictors to be independent of each other and can handle correlated features better than linear models. eg. decision tree, random forests, XGBoost, SVM, KNN, neural networks.
+
+
+* Check Correlation Among Features: (if there are linear relationships among features.)
+  * Analyze the correlation matrix to identify highly correlated features and reduce multicollinearity.
+  * There are 12 groups of features which correlation coefficient is more than 0.7. 
+  * Use VIF to do feature selection: the remaining features still include the highly correlated columns, like num_state and num_county. 
+  * Feature Engineering: Combine or create new features to reduce multicollinearity
+    * Create a new column 'avg_ip_cost': (avg_ip_reimbursement_per_claim + avg_ip_deductible_per_claim)*'avg_ip_claims_per_pat'
+    * delete features: 'num_County', 'avg_op_phy_type', 'avg_ip_reimbursement_per_claim'
+                , 'avg_ip_deductible_per_claim', 'avg_ip_claims_per_pat'
+                , 'avg_ip_claim_len', 'avg_ip_phy_num', 'avg_ip_phy_type'
+                , 'Top_5_ClmDiagnosisCode_ip', 'Top_5_ClmAdmitDiagnosisCode_ip'
+                , 'Top_5_DiagnosisGroupCode_ip', 'Top_5_ClmProcedureCode_ip', 'avg_ip_hosp'
