@@ -84,13 +84,24 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
   * Replace numeric null values with 0. Null values mean the provider doesn't have corresponding inpatient or outpaitent records. 
   * Replace categorical null values with 'None'.
 
-* Log Transformation with Shifting on Right-Skewed Columns:
-  * Apply log transformation to right-skewed columns to normalize the distribution. Add a constant shift to handle zero or negative values. But it cannot convert all features to normal distribution.
-
   * Check outliers
   * Set Q1 - 1.5 * IQR and Q3 + 1.5 * IQR as boundary to define outliers
   * Apply robust scaling and then apply min-max scaling to solve outliers, but the min-max scaling was still heavily affected by the extreme values.
-  * Apply winsorization by 10%. The remaning outliers are not extreme values, so it didn't screw the dataset when applying minmax scaler.
+  * Apply winsorization on the right side by 5%. The remaning outliers are not extreme values, so it didn't screw the dataset when applying minmax scaler.
+
+* Check Correlation Among Features: 
+  * Analyze the correlation matrix to identify highly correlated features and reduce multicollinearity.
+  * There are 12 groups of features which correlation coefficient is more than 0.7. 
+  * Use VIF to do feature selection: the remaining features still include the highly correlated columns, like num_state and num_county. 
+  * Feature Engineering: Combine or create new features to reduce multicollinearity
+    * Create new columns:
+        * 'avg_ip_cost': (avg_ip_reimbursement_per_claim + avg_ip_deductible_per_claim *'avg_ip_claims_per_pat'
+        * 'area_range': num_County + num_State
+    * delete features based on their VIF value: 
+                'num_County', 'num_State', 'avg_op_phy_num', 'avg_ip_reimbursement_per_claim'
+                , 'avg_ip_deductible_per_claim', 'avg_ip_claims_per_pat'
+                , 'avg_ip_hosp', 'avg_ip_phy_num', 'avg_ip_phy_type'
+                , 'Top_5_ClmDiagnosisCode_ip', 'avg_ip_claim_len'
 
 * Label Encoding Categorical Features:
   * Convert categorical features into numerical values using label encoding.
@@ -150,7 +161,9 @@ The label is assigned to providers, not individual claims. Therefore, merging th
 * Outliers:
 
 ** Check outliers: 
-1.	Z-score
+1.	Z-score 
+(data - mean)/std
+if abs(Z-score ) > 3, then outliers
 2.	Interquartile Range (IQR):
 Q1 = np.percentile(data, 25) 
 Q3 = np.percentile(data, 75)
@@ -177,8 +190,8 @@ The fractional part of R is 0.8.
 3. Winsorization: rather than setting them to the boundary values directly, Winsorization replaces extreme values with less extreme values within a specified percentile range.
 3. By using RobustScaler(), we can remove the outliers and then use either StandardScaler or MinMaxScaler for preprocessing the dataset. Since robust scaling cannot fit the features into a certain range or standard scale. But in our case, the effect is almost similar with directly applying MinMaxScaler.
 
-* transformation
-** Log Transformation with Shifting on right screwed columns: cannot always convert data into normal distribution
+* Log Transformation with Shifting on Right-Skewed Columns
+** Apply log transformation to right-skewed columns to normalize the distribution. Add a constant shift to handle zero or negative values. But it cannot convert all features to normal distribution.
 
 * encoding
 ** when you have column the values is in a list format, we can do one-hot encoding. But if there are too many distinct values in your list of your column, it will cause sparse data issue.
@@ -202,33 +215,23 @@ Ri-squared​​ higher vif higher. It means the predictor is easier to be predi
 
 ** Solution:
 1. Based on correlation coefficient and domain knowledge, select and remove highly correlated features.
-2. Based on correlation coefficient and WOE, select and remove highly correlated features
+2. Based on correlation coefficient and VIF, select and remove highly correlated features
 3. PCA: Reduces dimensionality and handles multicollinearity. But we have to apply PCA after scaling on the whole dataset. This may bring overfitting.
 4. Regularization: Ridge and Lasso regression handle multicollinearity.
 5. Remove features whose VIF > 10
 6. Feature Engineering: Combine or create new features to reduce multicollinearity.
 
 ** modeling:
-1. WOE in logistic regression
-2. the prerequisites for logistic regression
+1. WOE and IV in logistic regression
+2. Information value is not an optimal feature (variable) selection method when you are building a classification model other than binary logistic regression (for eg. random forest or SVM) as conditional log odds (which we predict in a logistic regression model) is highly related to the calculation of weight of evidence.
+3. the prerequisites for logistic regression
   * binary target
   * no multicollinearity between the predictor variables - heatmap (correlation matrix)
   * linear relationship between the logit (log-odds) of the outcome and each predictor variable (lr assumption)
   * prefer large sample size
   * Problem with extreme outliers
-  
+
 3. class_weight parameters for tree algorithm
 4. Models that do not have strict assumptions about multicollinearity are generally those that are non-linear or ensemble-based methods. These models do not require the predictors to be independent of each other and can handle correlated features better than linear models. eg. decision tree, random forests, XGBoost, SVM, KNN, neural networks.
 
 
-* Check Correlation Among Features: (if there are linear relationships among features.)
-  * Analyze the correlation matrix to identify highly correlated features and reduce multicollinearity.
-  * There are 12 groups of features which correlation coefficient is more than 0.7. 
-  * Use VIF to do feature selection: the remaining features still include the highly correlated columns, like num_state and num_county. 
-  * Feature Engineering: Combine or create new features to reduce multicollinearity
-    * Create a new column 'avg_ip_cost': (avg_ip_reimbursement_per_claim + avg_ip_deductible_per_claim)*'avg_ip_claims_per_pat'
-    * delete features: 'num_County', 'avg_op_phy_type', 'avg_ip_reimbursement_per_claim'
-                , 'avg_ip_deductible_per_claim', 'avg_ip_claims_per_pat'
-                , 'avg_ip_claim_len', 'avg_ip_phy_num', 'avg_ip_phy_type'
-                , 'Top_5_ClmDiagnosisCode_ip', 'Top_5_ClmAdmitDiagnosisCode_ip'
-                , 'Top_5_DiagnosisGroupCode_ip', 'Top_5_ClmProcedureCode_ip', 'avg_ip_hosp'
