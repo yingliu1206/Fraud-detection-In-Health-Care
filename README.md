@@ -153,19 +153,19 @@ The label is assigned to providers, not individual claims. Therefore, merging th
 * Exploring better data resources for claims would be valuable for future work. Identifying and incorporating additional data sources could enhance the accuracy and effectiveness of fraud detection models.
 * Make script in a pipeline format
 
-## technical takeaways
-* Outliers:
-
-** Check outliers: 
-1.	Z-score 
+## Technical Takeaways
+### Outliers:
+#### Check outliers: 
+*	Z-score 
 (data - mean)/std
 if abs(Z-score ) > 3, then outliers
-2.	Interquartile Range (IQR):
+*	Interquartile Range (IQR):
 Q1 = np.percentile(data, 25) 
 Q3 = np.percentile(data, 75)
 IQR(Interquartile Range ) = Q3 - Q1 
 lower_bound = Q1 - 1.5 * IQR 
 upper_bound = Q3 + 1.5 * IQR
+* Identify outliers, whether they result from human error or extreme values.
 
 eg. calculate 30th percentile
 1) Sort the Data: [15, 20, 35, 40, 50]
@@ -178,38 +178,42 @@ The 2nd value is 20.
 The fractional part of R is 0.8.
 15 + 0.8*(20-15) = 19
 
-3. identify outliers whether it is a human error or just extreme value
+#### Deal with outliers: 
+* Trimming amounts to simply removing the outliers from the dataset - for human errors
+* Clipping: sets outliers to predefined boundary values.
+* Winsorization: rather than setting them to the boundary values directly, Winsorization replaces extreme values with less extreme values within a specified percentile range.
+* By using RobustScaler(), we can remove the outliers and then use either StandardScaler or MinMaxScaler for preprocessing the dataset. Since robust scaling cannot fit the features into a certain range or standard scale. But in our case, the effect is almost similar with directly applying MinMaxScaler.
 
-** method: 
-1. Trimming amounts to simply removing the outliers from the dataset - for human errors
-2. Clipping: sets outliers to predefined boundary values.
-3. Winsorization: rather than setting them to the boundary values directly, Winsorization replaces extreme values with less extreme values within a specified percentile range.
-3. By using RobustScaler(), we can remove the outliers and then use either StandardScaler or MinMaxScaler for preprocessing the dataset. Since robust scaling cannot fit the features into a certain range or standard scale. But in our case, the effect is almost similar with directly applying MinMaxScaler.
+### Log Transformation with Shifting on Right-Skewed Columns
+* Apply log transformation to right-skewed columns to normalize the distribution. Add a constant shift to handle zero or negative values. But it cannot convert all features to normal distribution.
 
-* Log Transformation with Shifting on Right-Skewed Columns
-** Apply log transformation to right-skewed columns to normalize the distribution. Add a constant shift to handle zero or negative values. But it cannot convert all features to normal distribution.
+### Eencoding
+* When your column values are in list format, one-hot encoding is possible. However, if there are too many distinct values in your column, it can lead to sparse data issues.
 
-* encoding
-** when you have column the values is in a list format, we can do one-hot encoding. But if there are too many distinct values in your list of your column, it will cause sparse data issue.
-
-* multicollinearity measurement: assumes linear relationship between variables
-** Correlation Matrix - Pearson correlation coefficient = Cov(X,Y)/(stdev(X)*stdev(Y)) 
-    * It examines pairwise linear relationships.
-** VIF: variance inflation factor quantifies how much the variance of a regression coefficient is inflated due to multicollinearity in the model. 
+### Multicollinearity
+#### Correlation Measurement
+* Pearson correlation coefficient = Cov(X,Y)/(stdev(X)*stdev(Y))
+  * Both variables should be continuous and approximately normally distributed.
+  * The relationship between the variables should be linear.
+  * Constant variance of the variables
+* Spearman's Rank Correlation Coefficient = Cov(X_rank,Y_rank)/(stdev(X_rank)*stdev(Y_rank))
+  * Convert the data to ranks and then apply Pearson's correlation formula to the ranks.
+  * Can be used with ordinal, interval, or ratio data.
+  * Does not require the relationship to be linear, only monotonic (consistently increasing or decreasing).
+* VIF: variance inflation factor quantifies how much the variance of a regression coefficient is inflated due to multicollinearity in the model. 
     * Fit the Regression model of Each Predictor on Others:
-Regress X1​ on X2​ and X3​.
-Regress X2​ on X1​ and X3​.
-Regress X3​ on X1​ and X2​.
+      Regress X1​ on X2​ and X3​.
+      Regress X2​ on X1​ and X3​.
+      Regress X3​ on X1​ and X2​.
+    * Calculation of R-squared:
+      R-squared = 1- (residual sum of squares/ total sum of squares)
+      For each regression, compute the R-squared value, which represents how well the predictor can be explained by the other predictors.
+    * Compute VIF:
+      Use the formula VIF(Xi​)=1−1/Ri-squared​​ to compute VIF for each predictor.
+    * Higher R-squared corresponds to higher VIF. This indicates that the predictor is more susceptible to being predicted by other features.
+* Visualize: Correlation Matrix
 
-Calculation of R-squared:
-R-squared = 1- (residual sum of squares/ total sum of squares)
-For each regression, compute the R-squared value, which represents how well the predictor can be explained by the other predictors.
-
-Compute VIF:
-Use the formula VIF(Xi​)=1−1/Ri-squared​​ to compute VIF for each predictor.
-Ri-squared​​ higher vif higher. It means the predictor is easier to be predicted by other features.
-
-** Solution:
+#### Deal with highly-correlated columns:
 1. Based on correlation coefficient and domain knowledge, select and remove highly correlated features.
 2. Based on correlation coefficient and VIF, select and remove highly correlated features
 3. PCA: Reduces dimensionality and handles multicollinearity. But we have to apply PCA after scaling on the whole dataset. This may bring overfitting.
@@ -217,10 +221,10 @@ Ri-squared​​ higher vif higher. It means the predictor is easier to be predi
 5. Remove features whose VIF > 10
 6. Feature Engineering: Combine or create new features to reduce multicollinearity.
 
-** modeling:
-1. WOE and IV in logistic regression
-2. Information value is not an optimal feature (variable) selection method when you are building a classification model other than binary logistic regression (for eg. random forest or SVM) as conditional log odds (which we predict in a logistic regression model) is highly related to the calculation of weight of evidence.
-3. the prerequisites for logistic regression
+### modeling:
+* WOE and IV in logistic regression
+* Information value is not an optimal feature (variable) selection method when you are building a classification model other than binary logistic regression (for eg. random forest or SVM) as conditional log odds (which we predict in a logistic regression model) is highly related to the calculation of weight of evidence.
+* the prerequisites for logistic regression
   * binary target
   * no multicollinearity between the predictor variables - heatmap (correlation matrix)
   * linear relationship between the logit (log-odds) of the outcome and each predictor variable (lr assumption)
