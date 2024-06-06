@@ -97,11 +97,7 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
     * Create new columns:
         * 'avg_ip_cost': (avg_ip_reimbursement_per_claim + avg_ip_deductible_per_claim *'avg_ip_claims_per_pat'
         * 'area_range': num_County + num_State
-    * delete features based on their VIF value: 
-                'num_County', 'num_State', 'avg_op_phy_num', 'avg_ip_reimbursement_per_claim'
-                , 'avg_ip_deductible_per_claim', 'avg_ip_claims_per_pat'
-                , 'avg_ip_hosp', 'avg_ip_phy_num', 'avg_ip_phy_type'
-                , 'Top_5_ClmDiagnosisCode_ip', 'avg_ip_claim_len'
+    * delete features based on the point biserial correlation between the feature and the target variable
 
 * Label Encoding Categorical Features:
   * Convert categorical features into numerical values using label encoding.
