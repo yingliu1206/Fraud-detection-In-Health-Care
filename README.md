@@ -214,24 +214,24 @@ The fractional part of R is 0.8.
 * Visualize: Correlation Matrix
 
 #### Deal with highly-correlated columns:
-1. Based on correlation coefficient and domain knowledge, select and remove highly correlated features.
-2. Based on correlation coefficient and VIF, select and remove highly correlated features
-3. PCA: Reduces dimensionality and handles multicollinearity. But we have to apply PCA after scaling on the whole dataset. This may bring overfitting.
-4. Regularization: Ridge and Lasso regression handle multicollinearity.
-5. Remove features whose VIF > 10
-6. Feature Engineering: Combine or create new features to reduce multicollinearity.
+* Domain Knowledge: Consider the context and importance of each feature in relation to the problem domain.
+* Check correlation with the target vairable: use the point-biserial correlation coefficient to evaluate how well each continuous feature correlates with the binary target variable. Features with higher absolute values of the point-biserial correlation are more strongly associated with the target and may be considered more important.
+* PCA: PCA doesn’t require features to follow a normal distribution, but it does assume linearity. We can interpret the principal components as combinations of the original features.
+* Remove features whose VIF > 10: if we drop several features, we should calculate VIF dynamically.
+* Feature importance: e.g., Random Forest, Gradient Boosting), train the model with both x1x1x1 and x2x2x2, and check the importance scores. Retain the feature with a higher importance score.
+* Feature Engineering: Combine or create new features to reduce multicollinearity.
 
 ### modeling:
-* WOE and IV in logistic regression
+* WOE and IV in the logistic regression
 * Information value is not an optimal feature (variable) selection method when you are building a classification model other than binary logistic regression (for eg. random forest or SVM) as conditional log odds (which we predict in a logistic regression model) is highly related to the calculation of weight of evidence.
-* the prerequisites for logistic regression
+* The prerequisites for logistic regression
   * binary target
   * no multicollinearity between the predictor variables - heatmap (correlation matrix)
   * linear relationship between the logit (log-odds) of the outcome and each predictor variable (lr assumption)
   * prefer large sample size
   * Problem with extreme outliers
 
-3. class_weight parameters for tree algorithm
-4. Models that do not have strict assumptions about multicollinearity are generally those that are non-linear or ensemble-based methods. These models do not require the predictors to be independent of each other and can handle correlated features better than linear models. eg. decision tree, random forests, XGBoost, SVM, KNN, neural networks.
+* class_weight parameters for tree algorithm
+* Models that do not have strict assumptions about multicollinearity are generally those that are non-linear or ensemble-based methods. These models do not require the predictors to be independent of each other and can handle correlated features better than linear models. eg. decision tree, random forests, XGBoost, SVM, KNN, neural networks.
 
 
