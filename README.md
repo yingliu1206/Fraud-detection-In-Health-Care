@@ -80,21 +80,19 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 ![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/a0f34e0d-b5a7-492b-9fa4-3e32a84fc51f)
 
 ## Data Preprocessing
-* Process null values
-  * Replace numeric null values with 0. Null values mean the provider doesn't have corresponding inpatient or outpaitent records. 
+### Process null values
+  * Replace numeric null values with 0. Null values indicate that the provider doesn’t have corresponding inpatient or outpatient records.
   * Replace categorical null values with 'None'.
 
-  * Check outliers
-  * Set Q1 - 1.5 * IQR and Q3 + 1.5 * IQR as boundary to define outliers
-  * Apply robust scaling and then apply min-max scaling to solve outliers, but the min-max scaling was still heavily affected by the extreme values.
-  * Apply winsorization on the right side by 5%. The remaning outliers are not extreme values, so it didn't screw the dataset when applying minmax scaler.
+### Process outliers
+  * Set the lower bound as Q1 - 1.5 * IQR and the upper bound as Q3 + 1.5 * IQR to identify outliers.
+  * Perform winsorization on the right side (upper tail) by capping the top 5% of values. 
 
-* Check Correlation Among Features: 
-  * Analyze the correlation matrix to identify highly correlated features and reduce multicollinearity.
+### Check Correlation Among Features: 
+  * Calculate the Spearman's Rank Correlation Coefficient and visualize the correlation matrix to identify highly correlated features
   * There are 12 groups of features which correlation coefficient is more than 0.7. 
-  * Use VIF to do feature selection: the remaining features still include the highly correlated columns, like num_state and num_county. 
-  * Feature Engineering: Combine or create new features to reduce multicollinearity
-    * Create new columns:
+  * Feature Engineering: 
+    * Combine and create new columns:
         * 'avg_ip_cost': (avg_ip_reimbursement_per_claim + avg_ip_deductible_per_claim *'avg_ip_claims_per_pat'
         * 'area_range': num_County + num_State
     * delete features based on the point biserial correlation between the feature and the target variable
@@ -182,7 +180,7 @@ The fractional part of R is 0.8.
 * Trimming amounts to simply removing the outliers from the dataset - for human errors
 * Clipping: sets outliers to predefined boundary values.
 * Winsorization: rather than setting them to the boundary values directly, Winsorization replaces extreme values with less extreme values within a specified percentile range.
-* By using RobustScaler(), we can remove the outliers and then use either StandardScaler or MinMaxScaler for preprocessing the dataset. Since robust scaling cannot fit the features into a certain range or standard scale. But in our case, the effect is almost similar with directly applying MinMaxScaler.
+* Apply robust scaling followed by min-max scaling to address outliers. It’s important to note that while robust scaling doesn’t constrain features to a specific range, we still need to apply another scaler before fitting the data into the model. (x-median)/(percentile(75) - percentile(25))
 
 ### Log Transformation with Shifting on Right-Skewed Columns
 * Apply log transformation to right-skewed columns to normalize the distribution. Add a constant shift to handle zero or negative values. But it cannot convert all features to normal distribution.
