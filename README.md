@@ -221,7 +221,7 @@ The fractional part of R is 0.8.
 * Feature importance: e.g., Random Forest, Gradient Boosting), train the model with both x1x1x1 and x2x2x2, and check the importance scores. Retain the feature with a higher importance score.
 * Feature Engineering: Combine or create new features to reduce multicollinearity.
 
-### modeling:
+### Modeling:
 * WOE and IV in the logistic regression
 * Information value is not an optimal feature (variable) selection method when you are building a classification model other than binary logistic regression (for eg. random forest or SVM) as conditional log odds (which we predict in a logistic regression model) is highly related to the calculation of weight of evidence.
 * The prerequisites for logistic regression
