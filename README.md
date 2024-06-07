@@ -90,7 +90,7 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 
 ### Check Correlation Among Features: 
   * Calculate the Spearman's Rank Correlation Coefficient and visualize the correlation matrix to identify highly correlated features
-  * There are 12 groups of features which correlation coefficient is more than 0.7. 
+  * There are 11 groups of features which correlation coefficient is more than 0.7. 
   * Feature Engineering: 
     * Combine and create new columns:
         * 'avg_ip_cost': (avg_ip_reimbursement_per_claim + avg_ip_deductible_per_claim *'avg_ip_claims_per_pat'
