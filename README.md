@@ -76,8 +76,11 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 
 
 ### Comparison between lable 1 and 0 on categorical columns
-![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/0302ba56-3e04-4144-895b-0accb9d7269d)
-![image](https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/a0f34e0d-b5a7-492b-9fa4-3e32a84fc51f)
+<img width="1117" alt="Screenshot 2024-06-11 at 9 23 49 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/fb1d1f30-c2a1-43ab-acdf-291e8aa99688">
+<img width="1117" alt="Screenshot 2024-06-11 at 9 24 28 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/5c7f6244-f559-427c-9e60-d5781598a3ad">
+<img width="1118" alt="Screenshot 2024-06-11 at 9 24 52 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/6ff6f0c6-4e29-43b2-9417-de7914f77a2b">
+
+
 
 ## Data Preprocessing
 ### Process null values
