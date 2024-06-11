@@ -150,6 +150,7 @@ The label is assigned to providers, not individual claims. Therefore, merging th
 ## Future Work: 
 * Exploring better data resources for claims would be valuable for future work. Identifying and incorporating additional data sources could enhance the accuracy and effectiveness of fraud detection models.
 * Make script in a pipeline format
+* Pull top 5 diagnosis code and procedure code and utilize doc_vector to transform features.
 
 ## Technical Takeaways
 ### Outliers:
@@ -229,7 +230,15 @@ The fractional part of R is 0.8.
   * prefer large sample size
   * Problem with extreme outliers
 
-* class_weight parameters for tree algorithm
+* class_weight parameters set to 'balanced' can consider the imbalanced labels.
+* random_state can obtain a deterministic behaviour during fitting.
+* Both GridSearchCV and RandomizedSearchCV allow you to set the n_jobs parameter to -1 to use all available cores.
 * Models that do not have strict assumptions about multicollinearity are generally those that are non-linear or ensemble-based methods. These models do not require the predictors to be independent of each other and can handle correlated features better than linear models. eg. decision tree, random forests, XGBoost, SVM, KNN, neural networks.
+* XG_Boost overfitting: 
+  * lower max_depth
+  * increase min_child_weight: ensure nodes with fewer observations are not split.
+  * gamma: increase the minimum loss reduction required to make a split
+  * decrease the learning rate(eta) and increase the number of trees to ensure the model learns more slowly and generalizes better.
+  * regularization: reg_alpha - L1, reg_lambda - L2
 
 
