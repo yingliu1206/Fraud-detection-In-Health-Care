@@ -177,6 +177,7 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 * There is no clear discernible difference in the behavioral patterns of fraudulent providers regarding their diagnosis and procedure codes. This could be influenced by feature selection, as only the most frequent codes were considered. However, in reality, rare codes may serve as more indicative signals of fraud.
 * From the XGBoost model, important features for classifying claims are listed as below:
 <img width="873" alt="Screenshot 2024-06-11 at 10 18 44 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/4bec3f91-c946-46a3-a258-9f20ea320427">
+
 * Notable features include total inpatient cost, modality rate, and area range. These important features align with the key differences observed during EDA. Additionally, the plot highlights the significance of outpatient claims per patient as an influential factor.
 
 ## Limitations: 
