@@ -17,13 +17,13 @@ e) Billing for a covered service when a non-covered service was provided.
 The goal of this project is to predict potentially fraudulent healthcare providers based on their profile features. By analyzing various data points, including the number of claims filed, operating areas, specialties, common diagnosis codes, procedure codes, total reimbursement amounts, and other relevant information, we aim to develop a robust predictive model. Additionally, we seek to identify key variables that are instrumental in detecting potentially fraudulent providers.
 
 ## Project Objectives
-#### * Develop a Predictive Model
+#### Develop a Predictive Model
 Create a machine learning model that accurately predicts whether a provider is likely to be involved in fraudulent activities.
 
-#### * Feature Analysis
+#### Feature Analysis
 Identify the most significant features that contribute to the prediction of fraudulent behavior.
 
-#### * Validation and Testing
+#### Validation and Testing
 Ensure the model's reliability and accuracy through rigorous validation and testing.
 
 ## Dataset
@@ -49,34 +49,58 @@ This dataset consists of two columns: Provider ID and the label PotentialFraud (
 Since we don’t have labels for each claim, we cannot directly join the datasets by provider_id and assign the provider label to each claim. Instead, we will create features that represent the provider and then attach them to the provider data.
 
 ### Features from Inpatient Data (grouped by provider)
-* Average inpatient claims per patient: Calculate the average number of claims per patient.
-* Average inpatient reimbursement amount per claim: Calculate the average amount reimbursed for each claim.
-* Average inpatient deductible amount per claim: Calculate the average deductible amount for each claim.
-* Average inpatient claim length: Calculate the average length of time from admission to discharge for each claim.
-* Average hospital stay per claim: Calculate the average number of days a patient stays in the hospital for each claim.
-* Average number of physicians attending a claim: Calculate the average number of physicians involved in each claim.
-* Average number of types of physicians per claim: Calculate the average number of different types of physicians involved in each claim.
-* Most frequent ClmAdmitDiagnosisCode: Identify the most frequently occurring admission diagnosis code.
-* Most frequent DiagnosisGroupCode: Identify the most frequently occurring diagnosis group code.
-* Most frequent ClmDiagnosisCode: Identify the most frequently occurring diagnosis code.
-* Most frequent ClmProcedureCode: Identify the most frequently occurring procedure code.
+* **Average inpatient claims per patient:**
+    * Calculate the average number of claims per patient.
+* **Average inpatient reimbursement amount per claim:**
+    * Calculate the average amount reimbursed for each claim.
+* **Average inpatient deductible amount per claim:**
+    * Calculate the average deductible amount for each claim.
+* **Average inpatient claim length:**
+    * Calculate the average length of time from admission to discharge for each claim.
+* **Average hospital stay per claim:**
+    * Calculate the average number of days a patient stays in the hospital for each claim.
+* **Average number of physicians attending a claim:**
+    * Calculate the average number of physicians involved in each claim.
+* **Average number of types of physicians per claim:**
+    * Calculate the average number of different types of physicians involved in each claim.
+* **Most frequent ClmAdmitDiagnosisCode:**
+    * Identify the most frequently occurring admission diagnosis code.
+* **Most frequent DiagnosisGroupCode:**
+    * Identify the most frequently occurring diagnosis group code.
+* **Most frequent ClmDiagnosisCode:**
+    * Identify the most frequently occurring diagnosis code.
+* **Most frequent ClmProcedureCode:**
+    * Identify the most frequently occurring procedure code.
   
 ### Features from Outpatient Data (grouped by provider)
-* Average outpatient claims per patient: Calculate the average number of claims per patient.
-* Average outpatient reimbursement amount per claim: Calculate the average amount reimbursed for each claim.
-* Average outpatient deductible amount per claim: Calculate the average deductible amount for each claim.
-* Average outpatient claim length: Calculate the average length of time for each outpatient claim.
-* Average number of physicians attending a claim: Calculate the average number of physicians involved in each claim.
-* Average number of types of physicians per claim: Calculate the average number of different types of physicians involved in each claim.
-* Most frequent ClmAdmitDiagnosisCode: Identify the most frequently occurring admission diagnosis code.
-* Most frequent ClmDiagnosisCode: Identify the most frequently occurring diagnosis code.
+* **Average outpatient claims per patient:**
+    * Calculate the average number of claims per patient.
+* **Average outpatient reimbursement amount per claim:**
+    * Calculate the average amount reimbursed for each claim.
+* **Average outpatient deductible amount per claim:**
+    * Calculate the average deductible amount for each claim.
+* **Average outpatient claim length:**
+    * Calculate the average length of time for each outpatient claim.
+* **Average number of physicians attending a claim:**
+    * Calculate the average number of physicians involved in each claim.
+* **Average number of types of physicians per claim:**
+    * Calculate the average number of different types of physicians involved in each claim.
+* **Most frequent ClmAdmitDiagnosisCode:**
+    * Identify the most frequently occurring admission diagnosis code.
+* **Most frequent ClmDiagnosisCode:**
+    * Identify the most frequently occurring diagnosis code.
 
 ### From Beneficiary Data (grouped by provider)
-* Mortality rate: Calculate the proportion of deceased patients among all patients for each provider.
-* Average patient age: Calculate the average age of patients for each provider.
-* Distinct count of states: Count the number of unique states from which patients come for each provider.
-* Distinct count of counties: Count the number of unique counties from which patients come for each provider.
-* Average Charlson Comorbidity Index (CCI) of patients for each provider: Calculate the average CCI score of patients for each provider.
+* **Mortality rate:**
+    * Calculate the proportion of deceased patients among all patients for each provider.
+* **Average patient age:**
+    * Calculate the average age of patients for each provider.
+* **Distinct count of states:**
+    * Count the number of unique states from which patients come for each provider.
+* **Distinct count of counties:**
+    * Count the number of unique counties from which patients come for each provider.
+* **Average Charlson Comorbidity Index (CCI) of patients for each provider:**
+    * Calculate the average CCI score of patients for each provider.
 
 ## EDA Analysis
 ### Comparison between lable 1 and 0 on numerical columns
@@ -91,90 +115,91 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 
 ## Data Preprocessing
 ### Process null values
-  * Replace numeric null values with 0. Null values indicate that the provider doesn’t have corresponding inpatient or outpatient records.
+  * Replace numeric null values with 0, as these null values indicate that the provider doesn’t have corresponding inpatient or outpatient records.
   * Replace categorical null values with 'None'.
 
 ### Process outliers
-  * Set the lower bound as Q1 - 1.5 * IQR and the upper bound as Q3 + 1.5 * IQR to identify outliers.
-  * Perform winsorization on the right side (upper tail) by capping the top 5% of values. 
+  * Use the Interquartile Range (IQR) method to set the lower bound as Q1 - 1.5 * IQR and the upper bound as Q3 + 1.5 * IQR.
+  * Cap the top 5% of values to perform winsorization on the upper tail.
 
 ### Check Correlation Among Features: 
   * Calculate the Spearman's Rank Correlation Coefficient and visualize the correlation matrix to identify highly correlated features
-  * There are 11 groups of features which correlation coefficient is more than 0.7. 
+  * Discover 11 sets of features with correlation coefficients exceeding 0.7.
   * Feature Engineering: 
     * Combine and create new columns:
         * 'avg_ip_cost': (avg_ip_reimbursement_per_claim + avg_ip_deductible_per_claim *'avg_ip_claims_per_pat'
         * 'area_range': num_County + num_State
-    * delete features based on the point biserial correlation between the feature and the target variable
+    * Eliminate features based on their point biserial correlation with the target variable.
+    
+### Label Encoding Categorical Features:
+  * Transform categorical features into numerical values using label encoding.
 
-* Label Encoding Categorical Features:
-  * Convert categorical features into numerical values using label encoding.
+### Split Data into Train, Validation, and Test Datasets:
+  * Divide the dataset into training, validation, and test sets for model evaluation.
 
-* Split Data into Train, Validation, and Test Datasets:
-  * Divide the data into training, validation, and test sets to evaluate the model's performance.
-
-* Normalize Features:
+### Normalize Features:
   * Fit a MinmaxScaler on the training data to normalize feature scales and then apply the same parameters to the validation and test datasets.
 
 ## Modeling
-### Using all features
-#### Models: SVM, Decision Tree, Random Forest, XGBoost
-* Use GridSearchCV to Find the Optimal Parameters
-  * Perform hyperparameter tuning for each model using GridSearchCV to identify the best parameters.
+### Models: SVM, Decision Tree, Random Forest, XGBoost
+* Use GridSearchCV to find the best parameters, focusing on maximizing recall as the priority metric.
+  * Given the critical nature of fraud detection, where missing potential fraudulent cases carries higher risk than falsely flagging non-fraudulent ones, prioritizing recall ensures a focus on accurately identifying fraudulent instances.
 
 * Train the Model with the Best Parameters
-  * Train each model using the optimal parameters obtained from GridSearchCV.
 
 * Evaluate the Model on the Validation Dataset
-  * Assess the performance of each model on the validation dataset and record the scores.
 
-#### Compare the performance of models
-<img width="1005" alt="image" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/8f728312-a866-48c8-a8fb-9453ede392df">
+### Compare the performance of models
+<img width="1017" alt="Screenshot 2024-06-11 at 9 56 20 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/ef7450b2-9e37-47ac-9aae-8c15d3f55d1f">
 
-### Using important features
-#### Models: SVM, Decision Tree, Random Forest, XGBoost
-* Select Important Features Based on Random Forest Output
-  * Utilize the feature importances derived from the Random Forest model to select the most relevant features.
+### Model Selection and Retraining
+* Considering the performance metrics, XGBoost outperforms other models and is selected.
+* Merge the training and validation datasets, and retrain the chosen XGBoost model.
+* Evaluate the model's performance on the test dataset to obtain validation scores.
+* Evaluation Metrics:
 
-* Use GridSearchCV to Find the Optimal Parameters:
-  * Perform hyperparameter tuning for each model using GridSearchCV to identify the best parameters.
+| Metric    | XGBoost     |
+|-----------|-------------|
+| Accuracy  | 79.57%      |
+| Recall    | 85.09%      |     
+| Precision | 32.23%      |
+| AUC       | 88.26%      |       
 
-* Train the Model with the Best Parameters:
-  * Train each model using the optimal parameters obtained from GridSearchCV.
+* Confusion matrix:
+<img width="371" alt="Screenshot 2024-06-11 at 10 11 25 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/61c2d5a5-384b-4166-be41-26ba247cd86f">
 
-* Evaluate the Model on the Validation Dataset:
-  * Assess the performance of each model on the validation dataset and record the scores.
+* ROC Curve:
+<img width="688" alt="Screenshot 2024-06-11 at 10 14 21 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/b237893e-3fb2-4f33-99a1-b15b80bd1de7">
 
-#### Compare the performance of models
-<img width="1003" alt="image" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/2c77f93b-8f06-4a12-a6af-c58994fd7f05">
 
 ## Conclusions: 
-* There is not a significant difference in model performance between using all features and using selected features. However, we observe slightly better performance, such as recall in the random forest model, when using all features.
-* The number of states, number of counties, outpatient reimbursement, and outpatient deductible amount show distinct trends between labels 0 and 1. Fraudulent providers typically bill higher outpatient reimbursement claims, and the deductible amounts are also usually higher. Additionally, they cover a wider range of areas compared to non-fraudulent providers and are more likely to include multiple physicians and physician types in a claim.
-* From the random forest model, important features for classifying claims are listed as below:
-<img width="896" alt="image" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/8e792dc7-bccc-4bd4-a805-652e93f1ddb3">
+* From EDA analysis, fraudulent providers tend to exhibit distinct patterns compared to non-fraudulent ones in terms of the number of states, number of counties, outpatient reimbursement, and outpatient deductible amount. They often submit higher outpatient reimbursement claims and incur higher deductible amounts. Moreover, fraudulent providers typically operate across a wider geographic area and involve multiple physicians and physician types in a claim.
+* There is no clear discernible difference in the behavioral patterns of fraudulent providers regarding their diagnosis and procedure codes. This could be influenced by feature selection, as only the most frequent codes were considered. However, in reality, rare codes may serve as more indicative signals of fraud.
+* From the XGBoost model, important features for classifying claims are listed as below:
+<img width="873" alt="Screenshot 2024-06-11 at 10 18 44 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/4bec3f91-c946-46a3-a258-9f20ea320427">
+* Notable features include total inpatient cost, modality rate, and area range. These important features align with the key differences observed during EDA. Additionally, the plot highlights the significance of outpatient claims per patient as an influential factor.
 
 ## Limitations: 
 The label is assigned to providers, not individual claims. Therefore, merging the label with each claim by using the "provider_id" is not ideal. As a result, we reframed the problem to focus on identifying features of fraudulent providers rather than fraudulent claims. However, in reality, even providers with a high likelihood of being fraudulent may have both legitimate and fraudulent claims. Directing attention to all their claims may result in resource wastage. Thus, it would be more efficient to label each claim and train a model to predict the probability of fraudulent claims. This approach could yield more actionable insights.
 
 ## Future Work: 
-* Exploring better data resources for claims would be valuable for future work. Identifying and incorporating additional data sources could enhance the accuracy and effectiveness of fraud detection models.
-* Make script in a pipeline format
-* Pull top 5 diagnosis code and procedure code and utilize doc_vector to transform features.
+* Exploring better data resources for claims would be valuable for future work. 
+* Extracting the top 5 diagnosis codes and procedure codes and utilizing Doc2Vec for feature transformation could be explored to enhance model performance.
+* Implementing a script in a pipeline format to streamline the workflow.
 
 ## Technical Takeaways
-### Outliers:
-#### Check outliers: 
-*	Z-score 
-(data - mean)/std
-if abs(Z-score ) > 3, then outliers
+#### Outliers Detection:
+*	Z-score:
+    *	(data - mean)/std
+    * If abs(Z-score) > 3, then outliers
+
 *	Interquartile Range (IQR):
-Q1 = np.percentile(data, 25) 
-Q3 = np.percentile(data, 75)
-IQR(Interquartile Range ) = Q3 - Q1 
-lower_bound = Q1 - 1.5 * IQR 
-upper_bound = Q3 + 1.5 * IQR
-* Identify outliers, whether they result from human error or extreme values.
+    * Q1 = np.percentile(data, 25)
+    * Q3 = np.percentile(data, 75)
+    * IQR(Interquartile Range ) = Q3 - Q1
+    * lower_bound = Q1 - 1.5 * IQR
+    * upper_bound = Q3 + 1.5 * IQR
+    * Identify outliers, whether they result from human error or extreme values.
 
 eg. calculate 30th percentile
 1) Sort the Data: [15, 20, 35, 40, 50]
@@ -187,17 +212,18 @@ The 2nd value is 20.
 The fractional part of R is 0.8.
 15 + 0.8*(20-15) = 19
 
-#### Deal with outliers: 
-* Trimming amounts to simply removing the outliers from the dataset - for human errors
-* Clipping: sets outliers to predefined boundary values.
-* Winsorization: rather than setting them to the boundary values directly, Winsorization replaces extreme values with less extreme values within a specified percentile range.
-* Apply robust scaling followed by min-max scaling to address outliers. It’s important to note that while robust scaling doesn’t constrain features to a specific range, we still need to apply another scaler before fitting the data into the model. (x-median)/(percentile(75) - percentile(25))
+#### Outliers Handling: 
+* Simply removing outliers from the dataset, typically useful for addressing human errors.
+* Clipping: setting outliers to predefined boundary values, providing a more controlled approach to handling extreme values.
+* Winsorization: rather than setting them to the boundary values directly, winsorization replaces extreme values with less extreme values within a specified percentile range.
+* Apply robust scaling followed by min-max scaling to address outliers. It’s important to note that while robust scaling doesn’t constrain features to a specific range, we still need to apply another scaler before fitting the data into the model.
+    * robust scaling: (x-median)/(percentile(75) - percentile(25))
 
 ### Log Transformation with Shifting on Right-Skewed Columns
 * Apply log transformation to right-skewed columns to normalize the distribution. Add a constant shift to handle zero or negative values. But it cannot convert all features to normal distribution.
 
 ### Eencoding
-* When your column values are in list format, one-hot encoding is possible. However, if there are too many distinct values in your column, it can lead to sparse data issues.
+* When the column values are in list format, one-hot encoding is possible. However, if there are too many distinct values in the column, it can lead to sparse data issues.
 
 ### Multicollinearity
 #### Correlation Measurement
@@ -220,35 +246,43 @@ The fractional part of R is 0.8.
     * Compute VIF:
       Use the formula VIF(Xi​)=1−1/Ri-squared​​ to compute VIF for each predictor.
     * Higher R-squared corresponds to higher VIF. This indicates that the predictor is more susceptible to being predicted by other features.
-* Visualize: Correlation Matrix
 
-#### Deal with highly-correlated columns:
-* Domain Knowledge: Consider the context and importance of each feature in relation to the problem domain.
-* Check correlation with the target vairable: use the point-biserial correlation coefficient to evaluate how well each continuous feature correlates with the binary target variable. Features with higher absolute values of the point-biserial correlation are more strongly associated with the target and may be considered more important.
-* PCA: PCA doesn’t require features to follow a normal distribution, but it does assume linearity. We can interpret the principal components as combinations of the original features.
-* Remove features whose VIF > 10: if we drop several features, we should calculate VIF dynamically.
-* Feature importance: e.g., Random Forest, Gradient Boosting), train the model with both x1x1x1 and x2x2x2, and check the importance scores. Retain the feature with a higher importance score.
-* Feature Engineering: Combine or create new features to reduce multicollinearity.
+#### Dealing with Highly-Correlated Columns:
+* Utilize Domain Knowledge:
+    * Consider the significance of each feature within the problem domain.
+* Check correlation with the target vairable:
+    * use the point-biserial correlation coefficient to evaluate how well each continuous feature correlates with the binary target variable. Features with higher absolute values of the point-biserial correlation are more strongly associated with the target and may be considered more important.
+* PCA:
+    * While PCA does not require features to adhere to a normal distribution, it assumes linearity. Principal components can be interpreted as combinations of the original features.
+* Remove Features with VIF > 10:
+    * If multiple features need to be dropped, calculate the variance inflation factor (VIF) dynamically.
+* Feature Importance Analysis:
+    * For instance, in Random Forest or Gradient Boosting models, train the model with both sets of highly correlated features and assess the importance scores. Retain the feature with the higher importance score.
+* Feature Engineering:
+    * Combine or create new features to mitigate multicollinearity.
 
 ### Modeling:
-* WOE and IV in the logistic regression
-* Information value is not an optimal feature (variable) selection method when you are building a classification model other than binary logistic regression (for eg. random forest or SVM) as conditional log odds (which we predict in a logistic regression model) is highly related to the calculation of weight of evidence.
+* Weight of Evidence (WOE) and Information Value (IV) in logistic regression
+    * Information value is not an optimal feature selection method when you are building a classification model other than binary logistic regression (for eg. random forest or SVM) as conditional log odds (which we predict in a logistic regression model) is highly related to the calculation of weight of evidence.
 * The prerequisites for logistic regression
   * binary target
-  * no multicollinearity between the predictor variables - heatmap (correlation matrix)
+  * no multicollinearity between the predictor variables 
   * linear relationship between the logit (log-odds) of the outcome and each predictor variable (lr assumption)
   * prefer large sample size
-  * Problem with extreme outliers
-
-* class_weight parameters set to 'balanced' can consider the imbalanced labels.
-* random_state can obtain a deterministic behaviour during fitting.
-* Both GridSearchCV and RandomizedSearchCV allow you to set the n_jobs parameter to -1 to use all available cores.
+  * problem with extreme outliers
 * Models that do not have strict assumptions about multicollinearity are generally those that are non-linear or ensemble-based methods. These models do not require the predictors to be independent of each other and can handle correlated features better than linear models. eg. decision tree, random forests, XGBoost, SVM, KNN, neural networks.
-* XG_Boost overfitting: 
-  * lower max_depth
-  * increase min_child_weight: ensure nodes with fewer observations are not split.
-  * gamma: increase the minimum loss reduction required to make a split
-  * decrease the learning rate(eta) and increase the number of trees to ensure the model learns more slowly and generalizes better.
-  * regularization: reg_alpha - L1, reg_lambda - L2
+
+* Hyperparameters tuning
+    * Setting class_weight parameters to 'balanced' can help address imbalanced labels.
+    * Utilizing a fixed random_state ensures deterministic behavior during model fitting.
+    * Both GridSearchCV and RandomizedSearchCV allow the n_jobs parameter to be set to -1, utilizing all available cores for parallel processing.
+    * XG_Boost overfitting: 
+        * lower max_depth
+        * increase min_child_weight: ensure nodes with fewer observations are not split.
+        * gamma: increase the minimum loss reduction required to make a split
+        * decrease the learning rate(eta) and increase the number of trees to ensure the model learns more slowly and generalizes better.
+        * regularization: reg_alpha - L1, reg_lambda - L2
+
+
 
 
