@@ -184,7 +184,7 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 The label is assigned to providers, not individual claims. Therefore, merging the label with each claim by using the "provider_id" is not ideal. As a result, we reframed the problem to focus on identifying features of fraudulent providers rather than fraudulent claims. However, in reality, even providers with a high likelihood of being fraudulent may have both legitimate and fraudulent claims. Directing attention to all their claims may result in resource wastage. Thus, it would be more efficient to label each claim and train a model to predict the probability of fraudulent claims. This approach could yield more actionable insights.
 
 ## Future Work: 
-* Exploring better data resources for claims would be valuable for future work. 
+* Exploring better data resources for claims. 
 * Extracting the top 5 diagnosis codes and procedure codes and utilizing Doc2Vec for feature transformation could be explored to enhance model performance.
 * Implementing a script in a pipeline format to streamline the workflow.
 
