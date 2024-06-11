@@ -1,9 +1,7 @@
-## Project Objectives
-Provider fraud is one of the most significant challenges facing Medicare today. According to government statistics, Medicare spending has increased dramatically due to fraudulent claims. Healthcare fraud often involves organized crime, with networks of providers, physicians, and beneficiaries collaborating to submit fraudulent claims.
+## Project Background
+Medicare provider fraud poses a critical threat to the sustainability of the Medicare system. Government reports indicate that fraudulent claims have significantly inflated Medicare spending. Often orchestrated by organized crime networks, these fraudulent activities involve collusion among providers, physicians, and beneficiaries to submit deceptive claims.
 
-Through rigorous analysis of Medicare data, numerous physicians engaging in fraudulent activities have been identified. They frequently use ambiguous diagnosis codes to justify the most expensive procedures and drugs. Insurance companies are particularly vulnerable to these practices. Consequently, they have raised insurance premiums, making healthcare increasingly expensive.
-
-Healthcare fraud and abuse take many forms. Common types of provider fraud include:
+Provider fraud manifests in various forms, including:
 
 a) Billing for services that were not provided.
 
@@ -16,7 +14,17 @@ d) Charging for more complex or expensive services than were actually delivered.
 e) Billing for a covered service when a non-covered service was provided.
 
 ## Problem Statement
-The goal of this project is to predict potentially fraudulent providers based on their profile features. These features include the number of claims filed, operating areas, specialty, most common diagnosis codes, procedure codes, total reimbursement amounts, and other relevant data. Additionally, we aim to identify key variables that are instrumental in detecting potentially fraudulent providers.
+The goal of this project is to predict potentially fraudulent healthcare providers based on their profile features. By analyzing various data points, including the number of claims filed, operating areas, specialties, common diagnosis codes, procedure codes, total reimbursement amounts, and other relevant information, we aim to develop a robust predictive model. Additionally, we seek to identify key variables that are instrumental in detecting potentially fraudulent providers.
+
+## Project Objectives
+#### * Develop a Predictive Model
+Create a machine learning model that accurately predicts whether a provider is likely to be involved in fraudulent activities.
+
+#### * Feature Analysis
+Identify the most significant features that contribute to the prediction of fraudulent behavior.
+
+#### * Validation and Testing
+Ensure the model's reliability and accuracy through rigorous validation and testing.
 
 ## Dataset
 For this project, we are considering the following datasets: Inpatient claims, Outpatient claims, Beneficiary details, and Provider information.
@@ -40,35 +48,35 @@ This dataset consists of two columns: Provider ID and the label PotentialFraud (
 ## Feature Engineering
 Since we don’t have labels for each claim, we cannot directly join the datasets by provider_id and assign the provider label to each claim. Instead, we will create features that represent the provider and then attach them to the provider data.
 
-### From inpatient data - group by provider
-* Average inpatient claims per patient 
-* Average inpatient reimbursement amount per claim 
-* Average inpatient deductible amount per claim 
-* Average inpatient claim length
-* Average hospital stay per claim
-* Average number of physicians attending a claim
-* Average number of types of physicians per claim
-* The most frequent ClmAdmitDiagnosisCode
-* The most frequent DiagnosisGroupCode
-* The most frequent ClmDiagnosisCode
-* The most frequent ClmProcedureCode
+### Features from Inpatient Data (grouped by provider)
+* Average inpatient claims per patient: Calculate the average number of claims per patient.
+* Average inpatient reimbursement amount per claim: Calculate the average amount reimbursed for each claim.
+* Average inpatient deductible amount per claim: Calculate the average deductible amount for each claim.
+* Average inpatient claim length: Calculate the average length of time from admission to discharge for each claim.
+* Average hospital stay per claim: Calculate the average number of days a patient stays in the hospital for each claim.
+* Average number of physicians attending a claim: Calculate the average number of physicians involved in each claim.
+* Average number of types of physicians per claim: Calculate the average number of different types of physicians involved in each claim.
+* Most frequent ClmAdmitDiagnosisCode: Identify the most frequently occurring admission diagnosis code.
+* Most frequent DiagnosisGroupCode: Identify the most frequently occurring diagnosis group code.
+* Most frequent ClmDiagnosisCode: Identify the most frequently occurring diagnosis code.
+* Most frequent ClmProcedureCode: Identify the most frequently occurring procedure code.
+  
+### Features from Outpatient Data (grouped by provider)
+* Average outpatient claims per patient: Calculate the average number of claims per patient.
+* Average outpatient reimbursement amount per claim: Calculate the average amount reimbursed for each claim.
+* Average outpatient deductible amount per claim: Calculate the average deductible amount for each claim.
+* Average outpatient claim length: Calculate the average length of time for each outpatient claim.
+* Average number of physicians attending a claim: Calculate the average number of physicians involved in each claim.
+* Average number of types of physicians per claim: Calculate the average number of different types of physicians involved in each claim.
+* Most frequent ClmAdmitDiagnosisCode: Identify the most frequently occurring admission diagnosis code.
+* Most frequent ClmDiagnosisCode: Identify the most frequently occurring diagnosis code.
 
-### From outpatient data - group by provider
-* Average outpatient claims per patient 
-* Average outpatient reimbursement amount per claim 
-* Average outpatient deductible amount per claim 
-* Average outpatient claim length
-* Average number of physicians attending a claim
-* Average number of types of physicians per claim
-* The most frequent ClmAdmitDiagnosisCode
-* The most frequent ClmDiagnosisCode
-
-### From beneficiary data - group by provider
-* Mortality rate
-* Average patient age
-* Distinct count of state
-* Distinct count of county
-* Average Charlson Comorbidity Index(CCI) of patients for each provider
+### From Beneficiary Data (grouped by provider)
+* Mortality rate: Calculate the proportion of deceased patients among all patients for each provider.
+* Average patient age: Calculate the average age of patients for each provider.
+* Distinct count of states: Count the number of unique states from which patients come for each provider.
+* Distinct count of counties: Count the number of unique counties from which patients come for each provider.
+* Average Charlson Comorbidity Index (CCI) of patients for each provider: Calculate the average CCI score of patients for each provider.
 
 ## EDA Analysis
 ### Comparison between lable 1 and 0 on numerical columns
@@ -79,7 +87,6 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 <img width="1117" alt="Screenshot 2024-06-11 at 9 23 49 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/fb1d1f30-c2a1-43ab-acdf-291e8aa99688">
 <img width="1117" alt="Screenshot 2024-06-11 at 9 24 28 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/5c7f6244-f559-427c-9e60-d5781598a3ad">
 <img width="1118" alt="Screenshot 2024-06-11 at 9 24 52 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/6ff6f0c6-4e29-43b2-9417-de7914f77a2b">
-
 
 
 ## Data Preprocessing
