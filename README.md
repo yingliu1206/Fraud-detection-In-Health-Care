@@ -172,7 +172,7 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 <img width="688" alt="Screenshot 2024-06-11 at 10 14 21 AM" src="https://github.com/yingliu1206/Fraud-detection-In-Health-Care/assets/71619071/b237893e-3fb2-4f33-99a1-b15b80bd1de7">
 
 
-## Conclusions: 
+## Conclusion: 
 * From EDA analysis, fraudulent providers tend to exhibit distinct patterns compared to non-fraudulent ones in terms of the number of states, number of counties, outpatient reimbursement, and outpatient deductible amount. They often submit higher outpatient reimbursement claims and incur higher deductible amounts. Moreover, fraudulent providers typically operate across a wider geographic area and involve multiple physicians and physician types in a claim.
 * There is no clear discernible difference in the behavioral patterns of fraudulent providers regarding their diagnosis and procedure codes. This could be influenced by feature selection, as only the most frequent codes were considered. However, in reality, rare codes may serve as more indicative signals of fraud.
 * From the XGBoost model, important features for classifying claims are listed as below:
@@ -180,12 +180,12 @@ Since we don’t have labels for each claim, we cannot directly join the dataset
 
 * Notable features include total inpatient cost, modality rate, and area range. These important features align with the key differences observed during EDA. Additionally, the plot highlights the significance of outpatient claims per patient as an influential factor.
 
-## Limitations: 
+## Limitations
 The label is assigned to providers, not individual claims. Therefore, merging the label with each claim by using the "provider_id" is not ideal. As a result, we reframed the problem to focus on identifying features of fraudulent providers rather than fraudulent claims. However, in reality, even providers with a high likelihood of being fraudulent may have both legitimate and fraudulent claims. Directing attention to all their claims may result in resource wastage. Thus, it would be more efficient to label each claim and train a model to predict the probability of fraudulent claims. This approach could yield more actionable insights.
 
-## Future Work: 
+## Future Work
 * Exploring better data resources for claims. 
-* Extracting the top 5 diagnosis codes and procedure codes and utilizing Doc2Vec for feature transformation could be explored to enhance model performance.
+* Extracting the top 5 diagnosis codes and procedure codes and utilizing Doc2Vec for feature transformation.
 * Implementing a script in a pipeline format to streamline the workflow.
 
 ## Technical Takeaways
