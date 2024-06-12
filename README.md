@@ -283,7 +283,3 @@ The fractional part of R is 0.8.
         * gamma: increase the minimum loss reduction required to make a split
         * decrease the learning rate(eta) and increase the number of trees to ensure the model learns more slowly and generalizes better.
         * regularization: reg_alpha - L1, reg_lambda - L2
-
-
-
-
