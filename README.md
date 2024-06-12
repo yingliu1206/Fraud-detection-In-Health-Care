@@ -218,12 +218,12 @@ The fractional part of R is 0.8.
 * Clipping: setting outliers to predefined boundary values, providing a more controlled approach to handling extreme values.
 * Winsorization: rather than setting them to the boundary values directly, winsorization replaces extreme values with less extreme values within a specified percentile range.
 * Apply robust scaling followed by min-max scaling to address outliers. It’s important to note that while robust scaling doesn’t constrain features to a specific range, we still need to apply another scaler before fitting the data into the model.
-    * robust scaling: (x-median)/(percentile(75) - percentile(25))
+    * Robust scaling: (x-median)/(percentile(75) - percentile(25))
 
 ### Log Transformation with Shifting on Right-Skewed Columns
 * Apply log transformation to right-skewed columns to normalize the distribution. Add a constant shift to handle zero or negative values. But it cannot convert all features to normal distribution.
 
-### Eencoding
+### Encoding
 * When the column values are in list format, one-hot encoding is possible. However, if there are too many distinct values in the column, it can lead to sparse data issues.
 
 ### Multicollinearity
